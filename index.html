@@ -83,6 +83,7 @@
     p { margin: 0; }
     .container { width: min(var(--max), 100% - 40px); margin-inline: auto; }
     section { padding: 76px 0; position: relative; }
+    main > section:not(.hero)::after { content: ""; display: block; height: var(--snap-pb, 0px); }
     ::selection { background: var(--zap); color: var(--on-zap); }
 
     /* ícones de traço (sprite no topo do body) */
@@ -570,7 +571,8 @@
     /* =========================================================
        13b. REFINAMENTOS: divisores, selo, pilares, galeria ampliada, acessibilidade
        ========================================================= */
-    .slant { display: block; height: 1px; margin: 0; background: linear-gradient(90deg, transparent, rgba(255, 214, 10, .55) 14%, rgba(255, 214, 10, .55) 86%, transparent); }
+    .slant { display: block; position: relative; height: 0; margin: 0; }
+    .slant::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 214, 10, .6) 14%, rgba(255, 214, 10, .6) 86%, transparent); }
     .results { margin-top: 88px; }
 
     .stamp { position: absolute; z-index: 3; top: -54px; left: -60px; padding: 12px 22px; text-align: center; line-height: 1; transform: rotate(-5deg); color: var(--on-zap); display: grid; gap: 3px; isolation: isolate; }
@@ -726,18 +728,18 @@
       .hero.pin + section { padding-top: 40px; }
     }
 
-    /* ---- fundo: colunas do layout (20 no desktop) alinhadas ao container, com as bordas em amarelo e uma régua nas laterais.
-       Só linhas verticais: as horizontais são as próprias divisórias entre as seções, então nada fica fora de esquadro. ---- */
-    body { position: relative; --gw: min(var(--max), 100% - 40px); }
-    body::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: calc(var(--gw) + 18px); transform: translateX(-50%); z-index: -1; pointer-events: none;
+    /* ---- fundo: grade de quadrados ancorada no layout ----
+       O JS define --cell (largura do container / nº de colunas, então os quadrados são quadrados) e --gx (borda esquerda do container),
+       e acerta a altura de cada seção para um múltiplo de --cell: as divisórias caem sempre em cima de uma linha da grade. */
+    body { position: relative; }
+    body::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
       background:
-        linear-gradient(90deg, rgba(255, 214, 10, .13) 1px, transparent 1px, transparent calc(100% - 1px), rgba(255, 214, 10, .13) 0) 9px 0 / calc(100% - 18px) 100% no-repeat,
-        linear-gradient(90deg, rgba(255, 255, 255, .055) 1px, transparent 1px) 9px 0 / calc((100% - 18px) / 20) 100% repeat-x,
-        linear-gradient(rgba(255, 214, 10, .3) 1px, transparent 1px) 0 0 / 9px 56px repeat-y,
-        linear-gradient(rgba(255, 214, 10, .3) 1px, transparent 1px) right 0 top 0 / 9px 56px repeat-y; }
+        linear-gradient(rgba(255, 214, 10, .07) 1px, transparent 1px) var(--gx, 0) 0 / calc(var(--cell, 56px) * 4) calc(var(--cell, 56px) * 4),
+        linear-gradient(90deg, rgba(255, 214, 10, .07) 1px, transparent 1px) var(--gx, 0) 0 / calc(var(--cell, 56px) * 4) calc(var(--cell, 56px) * 4),
+        linear-gradient(rgba(255, 255, 255, .042) 1px, transparent 1px) var(--gx, 0) 0 / var(--cell, 56px) var(--cell, 56px),
+        linear-gradient(90deg, rgba(255, 255, 255, .042) 1px, transparent 1px) var(--gx, 0) 0 / var(--cell, 56px) var(--cell, 56px); }
     body::after { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
       background: radial-gradient(ellipse 55% 45% at 90% calc(8% + var(--pg, 0) * 84%), rgba(255, 214, 10, .07), transparent 70%); }
-    @media (max-width: 720px) { body::before { background-size: calc(100% - 18px) 100%, calc((100% - 18px) / 6) 100%, 9px 56px, 9px 56px; } }
 
     /* ---- contador de montagem da página ---- */
     .build-hud { position: fixed; left: 20px; bottom: 20px; z-index: 41; display: flex; align-items: center; gap: 12px; padding: 9px 14px; border: 1.5px solid var(--line-strong); border-radius: 10px; background: rgba(10, 10, 13, .86); backdrop-filter: blur(10px); font: 500 .7rem var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); pointer-events: none; }
@@ -2013,7 +2015,8 @@
         if (pin) {
           const hh = inner.offsetHeight;
           hero.style.setProperty("--hh", hh + "px");
-          hero.style.height = (hh + vh * .9) + "px";
+          const cell = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--cell")) || 56;
+          hero.style.height = Math.ceil((hh + vh * .9) / cell) * cell + "px";
         } else hero.style.height = "";
         const span = pin ? vh * .9 : vh * .6;
         heroT = clamp01(scrollY / span);
@@ -2024,6 +2027,40 @@
       addEventListener("resize", heroUpdate);
       heroUpdate();
       heroC = heroT; heroRender(heroT);   // primeiro quadro sem amortecimento
+    })();
+
+    /* ---------- Grade: quadrados de verdade e seções com altura múltipla da célula ---------- */
+    (function gridSnap() {
+      const root = document.documentElement;
+      let queued = false;
+      function layout() {
+        queued = false;
+        const w = document.body.clientWidth, gw = Math.min(1120, w - 40), n = Math.max(4, Math.round(gw / 56)), c = gw / n;
+        root.style.setProperty("--cell", c + "px");
+        root.style.setProperty("--gx", (w - gw) / 2 + "px");
+        $$("main > section").forEach((sec) => {
+          if (sec.classList.contains("pin")) { sec.style.paddingBottom = ""; sec.dataset.snap = 0; return; }
+          if (sec.classList.contains("hero")) {   // o hero acerta pelo padding (o ::after dele já é das guias)
+            sec.style.paddingBottom = "";
+            const base = parseFloat(getComputedStyle(sec).paddingBottom) || 0, h0 = sec.getBoundingClientRect().height;
+            const ex = Math.ceil(h0 / c - 1e-3) * c - h0;
+            if (ex > .4) sec.style.paddingBottom = base + ex + "px";
+            return;
+          }
+          const h = sec.getBoundingClientRect().height - (parseFloat(sec.dataset.snap) || 0);   // altura sem o acerto anterior
+          const extra = Math.ceil(h / c - 1e-3) * c - h;
+          const cur = parseFloat(sec.dataset.snap) || 0;
+          if (Math.abs(extra - cur) < .4) return;
+          sec.dataset.snap = extra;
+          sec.style.setProperty("--snap-pb", extra + "px");
+        });
+      }
+      const queue = () => { if (!queued) { queued = true; requestAnimationFrame(layout); } };
+      addEventListener("resize", queue);
+      addEventListener("load", queue);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(queue);
+      if ("ResizeObserver" in window) { const ro = new ResizeObserver(queue); $$("main > section").forEach((s) => ro.observe(s)); }
+      layout();
     })();
 
     /* ---------- Fontes da galeria: só carregam quando a seção está perto ---------- */

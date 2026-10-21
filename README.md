@@ -70,7 +70,7 @@ O conceito é **velocidade elétrica**: tudo na página deriva do raio do logoti
 | **Formas** | Paralelogramos inclinados em botões, grifos, selo e marcadores, na mesma inclinação do raio |
 | **Ícones** | Conjunto próprio de ícones de traço (SVG), com o mesmo desenho |
 | **Tipografia** | **Bricolage Grotesque** nos títulos, **Geist** no texto e **Geist Mono** nos detalhes técnicos |
-| **Detalhes** | Filete amarelo no topo dos blocos-chave, uma linha reta entre as seções, grade de colunas no fundo alinhada ao container (bordas em amarelo e régua nas laterais, com um brilho que desce junto com a página), esboço em grade que dá lugar a cada bloco e movimento sempre ligado à rolagem, com amortecimento curto para não dar saltos |
+| **Detalhes** | Filete amarelo no topo dos blocos-chave, uma linha reta entre as seções, grade de quadrados no fundo ancorada no layout (as bordas do container caem em linhas da grade e a altura de cada seção é ajustada a um múltiplo do quadrado, então as divisórias nunca ficam fora de esquadro; um brilho desce junto com a página), esboço em grade que dá lugar a cada bloco e movimento sempre ligado à rolagem, com amortecimento curto para não dar saltos |
 
 A galeria é de propósito um contraponto: cada exemplo (Grana, Torra, Fluxo e Sprint Zero) tem cores, fontes e layout próprios, para mostrar que dá para fazer qualquer coisa.
 
