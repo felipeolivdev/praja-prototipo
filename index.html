@@ -738,6 +738,12 @@
         linear-gradient(90deg, rgba(255, 214, 10, .07) 1px, transparent 1px) var(--gx, 0) var(--gy, 0px) / calc(var(--cell, 56px) * 4) calc(var(--cell, 56px) * 4),
         linear-gradient(rgba(255, 255, 255, .042) 1px, transparent 1px) var(--gx, 0) var(--gy, 0px) / var(--cell, 56px) var(--cell, 56px),
         linear-gradient(90deg, rgba(255, 255, 255, .042) 1px, transparent 1px) var(--gx, 0) var(--gy, 0px) / var(--cell, 56px) var(--cell, 56px); }
+    /* Enquanto o hero está fixo, a grade fica parada na tela: o contra-deslocamento é uma animação ligada à rolagem
+       (transform, na GPU), então não "luta" com o scroll. Sem suporte, o JS faz o mesmo deslocando o padrão. */
+    @keyframes gridhold { from { transform: translateY(0); } to { transform: translateY(var(--L, 0px)); } }
+    @supports (animation-timeline: scroll()) {
+      html.pin-on body::before { bottom: var(--L, 0px); animation: gridhold linear both; animation-timeline: scroll(root block); animation-range: 0px var(--L, 0px); }
+    }
     body::after { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
       background: radial-gradient(ellipse 55% 45% at 90% calc(8% + var(--pg, 0) * 84%), rgba(255, 214, 10, .07), transparent 70%); }
 
@@ -2021,8 +2027,11 @@
         const span = pin ? vh * .9 : vh * .6;
         heroT = clamp01(scrollY / span);
         const cellPx = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--cell")) || 56;
-        const gy = pin ? Math.min(scrollY, Math.floor((hero.offsetHeight - inner.offsetHeight) / cellPx) * cellPx) : 0;
-        document.documentElement.style.setProperty("--gy", gy + "px");
+        const L = pin ? Math.floor((hero.offsetHeight - inner.offsetHeight) / cellPx) * cellPx : 0;
+        const rootEl = document.documentElement, native = CSS.supports("animation-timeline", "scroll()");
+        rootEl.style.setProperty("--L", L + "px");
+        rootEl.classList.toggle("pin-on", pin && native);
+        rootEl.style.setProperty("--gy", (native ? 0 : Math.min(scrollY, L)) + "px");
         if (!isFinite(heroT)) heroT = 1;
         if (!isFinite(heroC)) heroC = -1;
         settle();
