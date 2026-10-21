@@ -22,7 +22,7 @@
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
   <noscript><style>.reveal, .hero .lead, .hero-cta, .hero-trust, .stage { opacity: 1 !important; transform: none !important; } .hero h1 .line span { transform: none !important; } .dash .bars i { height: calc(var(--h) * 100%) !important; } .dash .bars i b, .dash .ok { opacity: 1 !important; } .dash .ok { transform: skewX(var(--skew)) !important; } .dash .goal-bar i { width: 100% !important; }</style></noscript>
   <meta name="theme-color" content="#0a0a0d" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='11' fill='%23ffd60a'/><path d='M4 17h6M2 25h8' stroke='%230a0a0d' stroke-width='2.4' stroke-linecap='round'/><path d='M25 5 11 22.5h8L15 35l15-18.500h-8L25 5Z' fill='%230a0a0d' stroke='%230a0a0d' stroke-width='1.6' stroke-linejoin='round'/></svg>" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='11' fill='%23ffd60a'/><path d='M23 6 12 22h7l-2 12 11-16h-7z' fill='%230a0a0d'/></svg>" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -70,7 +70,7 @@
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; scroll-padding-top: 90px; background: var(--bg); }
     body {
-      margin: 0; background: var(--bg); color: var(--fg);
+      margin: 0; background: transparent; color: var(--fg);
       font-family: var(--font-body); line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
@@ -138,7 +138,7 @@
     .nav { display: flex; align-items: center; justify-content: space-between; height: 58px; padding: 0 16px 0 18px; }
     .logo { display: inline-flex; align-items: center; font-family: var(--font-display); font-weight: 800; font-size: 1.4rem; letter-spacing: -.045em; }
     .logo svg { width: 34px; height: 34px; flex-shrink: 0; margin-right: 10px; transition: transform .25s var(--snap); }
-    .logo:hover svg { transform: rotate(-8deg) scale(1.08); }
+    .logo:hover svg { transform: translateY(-1px) scale(1.05); }
     .logo .ja { color: var(--zap); }
     .logo em { font-style: normal; font-family: var(--font-mono); font-weight: 500; font-size: .72rem; letter-spacing: 0; color: var(--muted); margin-left: 6px; align-self: flex-end; padding-bottom: .38em; }
     .nav ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
@@ -152,7 +152,7 @@
     .hero { padding: 148px 0 48px; overflow: hidden; }
     .hero::before {
       content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-      background: repeating-linear-gradient(115deg, transparent 0 46px, rgba(255, 214, 10, .04) 46px 47px);
+      background: none;
       -webkit-mask-image: radial-gradient(ellipse 80% 70% at 70% 30%, #000 10%, transparent 75%);
       mask-image: radial-gradient(ellipse 80% 70% at 70% 30%, #000 10%, transparent 75%);
     }
@@ -251,7 +251,7 @@
     /* =========================================================
        8. PROCESSO + LINHA DO TEMPO
        ========================================================= */
-    #processo, #demo { background: var(--bg-2); }
+    #processo, #demo { background: rgba(255, 255, 255, .024); }
     .cutoff-col { position: sticky; top: 120px; }
     .cutoff { padding: 34px; background: var(--surface); border-color: var(--line-strong); box-shadow: inset 0 3px 0 var(--zap); }
     .cutoff:hover { transform: none; border-color: var(--line-strong); }
@@ -548,11 +548,12 @@
     /* =========================================================
        13. CTA FINAL + RODAPÉ + FLUTUANTES
        ========================================================= */
-    .cta-box { position: relative; text-align: center; padding: 72px 28px; border-radius: 28px; border: 1.5px solid var(--line-strong); background: var(--surface); box-shadow: inset 0 3px 0 var(--zap); overflow: hidden; }
+    .cta-box { position: relative; text-align: center; padding: 96px 36px 88px; border-radius: 28px; border: 1.5px solid var(--line-strong); background: var(--surface); box-shadow: inset 0 3px 0 var(--zap); overflow: hidden; }
     .cta-box::before { content: "24:00"; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-family: var(--font-display); font-weight: 800; font-size: clamp(9rem, 28vw, 22rem); letter-spacing: -.06em; color: transparent; -webkit-text-stroke: 2px rgba(255, 214, 10, .14); line-height: 1; pointer-events: none; }
     .cta-box > * { position: relative; }
-    .cta-box h2 { font-size: clamp(2.8rem, 7.4vw, 5.6rem); line-height: .94; letter-spacing: -.05em; }
-    .cta-box p { color: var(--muted); max-width: 500px; margin: 22px auto 36px; font-size: 1.12rem; }
+    .cta-box h2 { font-size: clamp(2.6rem, 6.2vw, 4.8rem); line-height: 1.04; letter-spacing: -.04em; }
+    .cta-box h2 .mark { display: block; width: fit-content; margin: .2em auto 0; padding: 0 .16em; }
+    .cta-box p { color: var(--muted); max-width: 520px; margin: 34px auto 40px; font-size: 1.14rem; line-height: 1.65; }
     .phone { display: block; margin-top: 24px; color: var(--muted); font-family: var(--font-mono); font-size: .9rem; }
     footer { border-top: 1.5px solid var(--line); padding: 34px 0; color: var(--muted); font-size: .9rem; margin-top: 40px; }
     .foot { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
@@ -569,7 +570,7 @@
     /* =========================================================
        13b. REFINAMENTOS: divisores, selo, pilares, galeria ampliada, acessibilidade
        ========================================================= */
-    .slant { display: block; height: 44px; margin: -1px 0; background: linear-gradient(to top right, var(--b) calc(50% - 2px), var(--zap) calc(50% - 2px), var(--zap) 50%, var(--a) 50%); }
+    .slant { display: block; height: 1px; margin: 0; background: linear-gradient(90deg, transparent, rgba(255, 214, 10, .55) 14%, rgba(255, 214, 10, .55) 86%, transparent); }
     .results { margin-top: 88px; }
 
     .stamp { position: absolute; z-index: 3; top: -54px; left: -60px; padding: 12px 22px; text-align: center; line-height: 1; transform: rotate(-5deg); color: var(--on-zap); display: grid; gap: 3px; isolation: isolate; }
@@ -625,7 +626,6 @@
     .skip:focus { top: 14px; }
 
     @media (max-width: 980px) {
-      .slant { height: 28px; }
       .pillars { grid-template-columns: 1fr; gap: 20px; margin-bottom: 40px; }
       .results { margin-top: 64px; }
       .stamp { top: -62px; left: 8px; transform: scale(.8) rotate(-5deg); transform-origin: left bottom; }
@@ -693,7 +693,7 @@
 
     /* ---- hero: o texto vira um site conforme a rolagem ---- */
     .hero { --hp: 1; }
-    .hero h1 .line span { --f: clamp(0, calc((var(--hp) - var(--d0, 0)) * 4), 1); color: transparent; -webkit-text-stroke: 1.5px color-mix(in srgb, var(--fg) calc((1 - var(--f)) * 65%), transparent);
+    .hero h1 .line span { --f: clamp(0, calc((var(--hp) - var(--d0, 0)) * 4), 1); color: transparent; -webkit-text-stroke: 1.25px color-mix(in srgb, var(--fg) calc((1 - var(--f)) * 65%), transparent);
       background: linear-gradient(90deg, var(--fg) calc(var(--f) * 104% - 4%), transparent calc(var(--f) * 104%)); -webkit-background-clip: text; background-clip: text; }
     .hero h1 .line:nth-child(2) span { --d0: .08; }
     .hero h1 .line:nth-child(3) span { --mk: clamp(0, calc((var(--hp) - .2) * 5), 1); color: color-mix(in srgb, var(--on-zap) calc(var(--mk) * 100%), var(--fg)); -webkit-text-stroke: 0; background: none; }
@@ -721,9 +721,19 @@
     .hero-hint { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 2; font: 500 .72rem var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--zap); white-space: nowrap; opacity: calc(1 - var(--hp) * 4); pointer-events: none; }
     .hero-inner { position: relative; }
     @media (min-width: 981px) and (min-height: 700px) {
-      .hero.pin { padding: 0; height: 250vh; overflow: visible; overflow-x: clip; }
-      .hero.pin .hero-inner { position: sticky; top: 0; height: 100vh; padding-top: 76px; align-items: center; }
+      .hero.pin { padding: 0; height: calc(100vh + 90vh); overflow: visible; overflow-x: clip; }
+      .hero.pin .hero-inner { position: sticky; top: 0; height: 100vh; padding-top: clamp(104px, 15vh, 150px); align-items: start; }
+      .hero.pin + section { padding-top: 56px; }
     }
+
+    /* ---- fundo: grade de projeto; o brilho desce com a página ---- */
+    body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background:
+        radial-gradient(ellipse 55% 45% at 90% calc(8% + var(--pg, 0) * 84%), rgba(255, 214, 10, .075), transparent 70%),
+        linear-gradient(rgba(255, 214, 10, .05) 1px, transparent 1px) 0 0 / 192px 192px,
+        linear-gradient(90deg, rgba(255, 214, 10, .05) 1px, transparent 1px) 0 0 / 192px 192px,
+        linear-gradient(rgba(255, 255, 255, .03) 1px, transparent 1px) 0 0 / 48px 48px,
+        linear-gradient(90deg, rgba(255, 255, 255, .03) 1px, transparent 1px) 0 0 / 48px 48px; }
 
     /* ---- contador de montagem da página ---- */
     .build-hud { position: fixed; left: 20px; bottom: 20px; z-index: 41; display: flex; align-items: center; gap: 12px; padding: 9px 14px; border: 1.5px solid var(--line-strong); border-radius: 10px; background: rgba(10, 10, 13, .86); backdrop-filter: blur(10px); font: 500 .7rem var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); pointer-events: none; }
@@ -889,7 +899,6 @@
       .section-head p { font-size: 1rem; margin-top: 10px; }
       h2 { font-size: 1.95rem; }
       .eyebrow { font-size: .72rem; margin-bottom: 12px; }
-      .slant { height: 20px; }
       .btn { padding: 12px 22px; font-size: .92rem; }
       .btn svg { width: 18px; height: 18px; }
 
@@ -1003,9 +1012,9 @@
       summary { padding: 14px 0; font-size: .95rem; }
       summary::after { width: 28px; height: 28px; }
       details p { font-size: .9rem; padding-bottom: 14px; }
-      .cta-box { padding: 44px 18px; border-radius: 22px; }
-      .cta-box h2 { font-size: 2.3rem; }
-      .cta-box p { font-size: 1rem; margin: 14px auto 22px; }
+      .cta-box { padding: 52px 20px 48px; border-radius: 22px; }
+      .cta-box h2 { font-size: 2.1rem; }
+      .cta-box p { font-size: 1rem; margin: 22px auto 28px; }
       .phone { font-size: .78rem; margin-top: 16px; }
       footer { padding: 22px 0 88px; font-size: .8rem; margin-top: 16px; }
 
@@ -1058,7 +1067,7 @@
   <!-- ===== Header ===== -->
   <header>
     <div class="container nav" style="width:100%">
-      <a href="#" class="logo" aria-label="PraJá.studio"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#ffd60a"/><path d="M4 17h6M2 25h8" stroke="#0a0a0d" stroke-width="2.4" stroke-linecap="round"/><path d="M25 5 11 22.5h8L15 35l15-18.5h-8L25 5Z" fill="#0a0a0d" stroke="#0a0a0d" stroke-width="1.6" stroke-linejoin="round"/></svg>Pra<span class="ja">Já</span><em>.studio</em></a>
+      <a href="#" class="logo" aria-label="PraJá.studio"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#ffd60a"/><path d="M23 6 12 22h7l-2 12 11-16h-7z" fill="#0a0a0d"/></svg>Pra<span class="ja">Já</span><em>.studio</em></a>
       <ul>
         <li><a href="#processo">Processo</a></li>
         <li><a href="#exemplos">Exemplos</a></li>
@@ -1731,6 +1740,7 @@
     function hudUpdate(pg) {
       const pct = Math.round(Math.max(0, Math.min(1, pg)) * 100);
       hud.style.setProperty("--pg", pg.toFixed(3));
+      document.documentElement.style.setProperty("--pg", pg.toFixed(3));
       hudPct.textContent = pct + "%";
       hudLabel.textContent = pct >= 99 ? "No ar" : "Montando";
       hud.classList.toggle("on", pct >= 99);
@@ -1796,7 +1806,14 @@
         el.append(bc);
       }
     });
-    let buildQueued = false;
+    let buildQueued = false, settling = false, firstBuild = true;
+    let heroT = 0, heroC = -1, heroRender = () => {};
+    function applyBuild(el, c) {
+      el.style.setProperty("--p", c.toFixed(3));
+      const done = c >= 1;
+      if (done !== el.__done) { el.__done = done; el.classList.toggle("done", done); }
+      if (el.__hook) el.__hook(c, done);
+    }
     function build() {
       buildQueued = false;
       const vh = innerHeight, from = vh * .98, to = vh * .5;
@@ -1804,13 +1821,34 @@
       buildEls.forEach((el) => {
         const top = el.getBoundingClientRect().top;
         const end = Math.max(to, top + scrollY - maxScroll);   // blocos no fim da página também chegam a 1
-        const p = from - end < 24 ? (top < from ? 1 : 0) : Math.max(0, Math.min(1, (from - top) / (from - end)));
-        if (el.__p === p) return;
-        el.__p = p;
-        el.style.setProperty("--p", p.toFixed(3));
-        el.classList.toggle("done", p >= 1);
-        if (el.__hook) el.__hook(p, p >= 1);
+        let t = from - end < 24 ? (top < from ? 1 : 0) : Math.max(0, Math.min(1, (from - top) / (from - end)));
+        if (!isFinite(t)) t = 1;
+        el.__t = t;
+        if (firstBuild) { el.__c = t; applyBuild(el, t); }
       });
+      firstBuild = false;
+      settle();
+    }
+    /* o progresso exibido alcança o da rolagem com um amortecimento curto: sem saltos, sem duração fixa */
+    function settle() { if (!settling) { settling = true; requestAnimationFrame(step); } }
+    function step() {
+      settling = false;
+      let again = false;
+      buildEls.forEach((el) => {
+        const t = el.__t ?? 0, c0 = el.__c ?? 0;
+        if (c0 === t) return;
+        let c = c0 + (t - c0) * .22;
+        if (Math.abs(t - c) < .002) c = t;
+        el.__c = c; applyBuild(el, c);
+        if (c !== t) again = true;
+      });
+      if (heroC !== heroT) {
+        heroC = heroC < 0 ? heroT : heroC + (heroT - heroC) * .22;
+        if (Math.abs(heroT - heroC) < .002) heroC = heroT;
+        heroRender(heroC);
+        if (heroC !== heroT) again = true;
+      }
+      if (again) settle();
     }
     function queueBuild() { if (!buildQueued) { buildQueued = true; requestAnimationFrame(build); } }
     let heroUpdate = () => {};
@@ -1864,23 +1902,27 @@
       hero.style.setProperty("--wn", words.length);
       const pinMQ = matchMedia("(min-width: 981px) and (min-height: 700px)");
       const clamp01 = (x) => Math.max(0, Math.min(1, x));
-      let last = -1, lastStep = -1;
-      heroUpdate = () => {
-        const vh = innerHeight;
-        const pin = pinMQ.matches;
-        hero.classList.toggle("pin", pin);
-        const span = pin ? Math.max(1, hero.offsetHeight - vh) : vh * .6;
-        const hp = clamp01(scrollY / span);
-        if (hp === last) return;
-        last = hp;
+      let lastStep = -1;
+      heroRender = (hp) => {
         hero.style.setProperty("--hp", hp.toFixed(3));
         let n = 0; steps.forEach((s2, i) => { if (hp >= s2.at - 1e-6) n = i; });
         if (n !== lastStep) { lastStep = n; label.textContent = steps[n].t; }
         clock.textContent = String(Math.round(hp * 24)).padStart(2, "0") + ":00h";
         br.classList.toggle("live", hp >= 1);
       };
-      addEventListener("resize", () => { last = -1; heroUpdate(); });
+      heroUpdate = () => {
+        const vh = innerHeight;
+        const pin = pinMQ.matches;
+        hero.classList.toggle("pin", pin);
+        const span = pin ? Math.max(1, hero.offsetHeight - vh) : vh * .6;
+        heroT = clamp01(scrollY / span);
+        if (!isFinite(heroT)) heroT = 1;
+        if (!isFinite(heroC)) heroC = -1;
+        settle();
+      };
+      addEventListener("resize", heroUpdate);
       heroUpdate();
+      heroC = heroT; heroRender(heroT);   // primeiro quadro sem amortecimento
     })();
 
     /* ---------- Fontes da galeria: só carregam quando a seção está perto ---------- */
