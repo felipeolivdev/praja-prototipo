@@ -734,15 +734,23 @@
     body { position: relative; }
     body::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
       background:
-        linear-gradient(rgba(255, 214, 10, .07) 1px, transparent 1px) var(--gx, 0) var(--gy, 0px) / calc(var(--cell, 56px) * 4) calc(var(--cell, 56px) * 4),
-        linear-gradient(90deg, rgba(255, 214, 10, .07) 1px, transparent 1px) var(--gx, 0) var(--gy, 0px) / calc(var(--cell, 56px) * 4) calc(var(--cell, 56px) * 4),
-        linear-gradient(rgba(255, 255, 255, .042) 1px, transparent 1px) var(--gx, 0) var(--gy, 0px) / var(--cell, 56px) var(--cell, 56px),
-        linear-gradient(90deg, rgba(255, 255, 255, .042) 1px, transparent 1px) var(--gx, 0) var(--gy, 0px) / var(--cell, 56px) var(--cell, 56px); }
-    /* Enquanto o hero está fixo, a grade fica parada na tela: o contra-deslocamento é uma animação ligada à rolagem
-       (transform, na GPU), então não "luta" com o scroll. Sem suporte, o JS faz o mesmo deslocando o padrão. */
-    @keyframes gridhold { from { transform: translateY(0); } to { transform: translateY(var(--L, 0px)); } }
-    @supports (animation-timeline: scroll()) {
-      html.pin-on body::before { bottom: var(--L, 0px); animation: gridhold linear both; animation-timeline: scroll(root block); animation-range: 0px var(--L, 0px); }
+        linear-gradient(rgba(255, 214, 10, .07) 1px, transparent 1px) var(--gx, 0) 0 / calc(var(--cell, 56px) * 4) calc(var(--cell, 56px) * 4),
+        linear-gradient(90deg, rgba(255, 214, 10, .07) 1px, transparent 1px) var(--gx, 0) 0 / calc(var(--cell, 56px) * 4) calc(var(--cell, 56px) * 4),
+        linear-gradient(rgba(255, 255, 255, .042) 1px, transparent 1px) var(--gx, 0) 0 / var(--cell, 56px) var(--cell, 56px),
+        linear-gradient(90deg, rgba(255, 255, 255, .042) 1px, transparent 1px) var(--gx, 0) 0 / var(--cell, 56px) var(--cell, 56px); }
+    /* Enquanto o hero está fixo, a grade dele é uma camada sticky (nativa, sem JS): fica COMPLETAMENTE parada na tela e,
+       quando o hero solta, rola junto com a página no mesmo encaixe da grade do fundo (altura da camada = múltiplo da célula). */
+    .hero-grid { display: none; }
+    @media (min-width: 981px) and (min-height: 700px) {
+      .hero.pin .hero-grid { display: block; position: sticky; top: 0; height: var(--lh, 100vh); margin-bottom: calc(var(--lh, 100vh) * -1); z-index: 0; pointer-events: none;
+        background:
+          radial-gradient(ellipse 55% 45% at 90% 8%, rgba(255, 214, 10, .07), transparent 70%),
+          linear-gradient(rgba(255, 214, 10, .07) 1px, transparent 1px) var(--gx, 0) 0 / calc(var(--cell, 56px) * 4) calc(var(--cell, 56px) * 4),
+          linear-gradient(90deg, rgba(255, 214, 10, .07) 1px, transparent 1px) var(--gx, 0) 0 / calc(var(--cell, 56px) * 4) calc(var(--cell, 56px) * 4),
+          linear-gradient(rgba(255, 255, 255, .042) 1px, transparent 1px) var(--gx, 0) 0 / var(--cell, 56px) var(--cell, 56px),
+          linear-gradient(90deg, rgba(255, 255, 255, .042) 1px, transparent 1px) var(--gx, 0) 0 / var(--cell, 56px) var(--cell, 56px),
+          var(--bg); }
+      .hero.pin .hero-inner { z-index: 1; }
     }
     body::after { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
       background: radial-gradient(ellipse 55% 45% at 90% calc(8% + var(--pg, 0) * 84%), rgba(255, 214, 10, .07), transparent 70%); }
@@ -1149,6 +1157,7 @@
   <main id="conteudo">
     <!-- ===== Hero ===== -->
     <section class="hero">
+      <div class="hero-grid" aria-hidden="true"></div>
       <div class="container hero-inner">
         <div>
           <span class="oneday"><span class="dot"></span> <b>Seu site no ar em 24 horas.</b> Não em semanas.</span>
@@ -2027,11 +2036,7 @@
         const span = pin ? vh * .9 : vh * .6;
         heroT = clamp01(scrollY / span);
         const cellPx = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--cell")) || 56;
-        const L = pin ? Math.floor((hero.offsetHeight - inner.offsetHeight) / cellPx) * cellPx : 0;
-        const rootEl = document.documentElement, native = CSS.supports("animation-timeline", "scroll()");
-        rootEl.style.setProperty("--L", L + "px");
-        rootEl.classList.toggle("pin-on", pin && native);
-        rootEl.style.setProperty("--gy", (native ? 0 : Math.min(scrollY, L)) + "px");
+        hero.style.setProperty("--lh", Math.ceil(vh / cellPx) * cellPx + "px");   // a camada de grade cobre a tela inteira, em múltiplo da célula
         if (!isFinite(heroT)) heroT = 1;
         if (!isFinite(heroC)) heroC = -1;
         settle();
