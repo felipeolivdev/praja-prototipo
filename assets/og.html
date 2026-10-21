@@ -4,38 +4,41 @@
 <meta charset="UTF-8" />
 <title>PraJá.studio · imagem de compartilhamento (1200x630)</title>
 <!-- Fonte da imagem social. Para regerar og.png: abra no navegador em 1200x630 e capture a tela. -->
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,700..900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Geist:wght@400..700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet" />
 <style>
   :root { --bg: #0a0a0d; --fg: #f6f4ec; --zap: #ffd60a; --muted: #a4a4ae; }
   * { box-sizing: border-box; margin: 0; }
-  html, body { width: 1200px; height: 630px; background: var(--bg); color: var(--fg); overflow: hidden; font-family: "Archivo", system-ui, sans-serif; }
+  html, body { width: 1200px; height: 630px; background: var(--bg); color: var(--fg); overflow: hidden; font-family: "Bricolage Grotesque", "Geist", system-ui, sans-serif; }
   .bg { position: absolute; inset: 0; background:
-      repeating-linear-gradient(115deg, transparent 0 56px, rgba(255, 214, 10, .05) 56px 57px),
+      linear-gradient(90deg, rgba(255, 214, 10, .14) 1px, transparent 1px, transparent calc(100% - 1px), rgba(255, 214, 10, .14) 0) 72px 0 / 1056px 100% no-repeat,
+      linear-gradient(90deg, rgba(255, 255, 255, .045) 1px, transparent 1px) 72px 0 / 48px 100% repeat-x,
+      linear-gradient(rgba(255, 214, 10, .3) 1px, transparent 1px) 63px 0 / 9px 56px repeat-y,
+      linear-gradient(rgba(255, 214, 10, .3) 1px, transparent 1px) 1128px 0 / 9px 56px repeat-y,
       radial-gradient(700px 420px at 85% 15%, rgba(255, 214, 10, .16), transparent 70%); }
-  .top { position: absolute; left: 72px; top: 56px; display: flex; align-items: center; gap: 16px; font-weight: 800; font-stretch: 112%; font-size: 40px; letter-spacing: -.045em; }
+  .top { position: absolute; left: 72px; top: 56px; display: flex; align-items: center; gap: 16px; font-weight: 800; font-size: 40px; letter-spacing: -.045em; }
   .top svg { width: 58px; height: 58px; }
   .top .ja { color: var(--zap); }
-  .top em { font-style: normal; font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 20px; letter-spacing: 0; color: var(--muted); margin-left: -8px; padding-top: 14px; }
-  .chip { position: absolute; right: 72px; top: 62px; display: flex; align-items: center; gap: 12px; padding: 12px 24px; border: 2px solid var(--zap); border-radius: 999px; font-weight: 800; font-stretch: 112%; font-size: 26px; color: var(--zap); background: #15151b; }
+  .top em { font-style: normal; font-family: "Geist Mono", monospace; font-weight: 500; font-size: 20px; letter-spacing: 0; color: var(--muted); margin-left: -8px; padding-top: 14px; }
+  .chip { position: absolute; right: 72px; top: 62px; display: flex; align-items: center; gap: 12px; padding: 12px 24px; border: 2px solid var(--zap); border-radius: 999px; font-weight: 800; font-size: 26px; color: var(--zap); background: #15151b; }
   .chip i { width: 12px; height: 12px; border-radius: 50%; background: var(--zap); }
-  h1 { position: absolute; left: 72px; top: 178px; font-weight: 800; font-stretch: 112%; font-size: 96px; line-height: .98; letter-spacing: -.04em; }
+  h1 { position: absolute; left: 72px; top: 178px; font-weight: 800; font-size: 96px; line-height: .98; letter-spacing: -.04em; }
   h1 .mark { position: relative; display: inline-block; z-index: 0; color: var(--bg); padding: 0 .04em; }
   h1 .mark::before { content: ""; position: absolute; inset: .02em -.14em .04em; background: var(--zap); transform: skewX(-8deg); border-radius: 14px; z-index: -1; }
-  .foot { position: absolute; left: 72px; bottom: 54px; font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 22px; color: var(--muted); letter-spacing: .02em; }
+  .foot { position: absolute; left: 72px; bottom: 54px; font-family: "Geist Mono", monospace; font-weight: 500; font-size: 22px; color: var(--muted); letter-spacing: .02em; }
   .foot b { color: var(--zap); }
-  .tag { position: absolute; right: 72px; bottom: 46px; font-weight: 800; font-stretch: 112%; font-size: 30px; padding: 14px 30px; color: var(--bg); isolation: isolate; }
+  .tag { position: absolute; right: 72px; bottom: 46px; font-weight: 800; font-size: 30px; padding: 14px 30px; color: var(--bg); isolation: isolate; }
   .tag::before { content: ""; position: absolute; inset: 0; background: var(--zap); transform: skewX(-8deg); border-radius: 12px; z-index: -1; }
 </style>
 </head>
 <body>
   <div class="bg"></div>
   <div class="top">
-    <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#ffd60a"/><path d="M4 17h6M2 25h8" stroke="#0a0a0d" stroke-width="2.4" stroke-linecap="round"/><path d="M25 5 11 22.5h8L15 35l15-18.5h-8L25 5Z" fill="#0a0a0d" stroke="#0a0a0d" stroke-width="1.6" stroke-linejoin="round"/></svg>
+    <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#ffd60a"/><path d="M23 6 12 22h7l-2 12 11-16h-7z" fill="#0a0a0d"/></svg>
     <span>Pra<span class="ja">Já</span></span><em>.studio</em>
   </div>
-  <div class="chip"><i></i>Pronta em UM DIA</div>
-  <h1>Quer uma página<br>pro seu negócio?<br><span class="mark">É PraJá.</span></h1>
-  <div class="foot"><b>»</b> Landing page para validar ideia &nbsp; <b>»</b> Protótipo fictício</div>
+  <div class="chip"><i></i>Seu site no ar em 24 horas</div>
+  <h1>Quer um site<br>para sua startup?<br><span class="mark">É PraJá.</span></h1>
+  <div class="foot"><b>»</b> Para startups que testam ideias &nbsp; <b>»</b> Protótipo fictício</div>
   <div class="tag">24 horas</div>
 </body>
 </html>

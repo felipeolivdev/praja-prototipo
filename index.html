@@ -715,9 +715,7 @@
       background: linear-gradient(rgba(255, 214, 10, .09) 1px, transparent 1px) 0 0 / 22px 22px, linear-gradient(90deg, rgba(255, 214, 10, .09) 1px, transparent 1px) 0 0 / 22px 22px; }
     .float-chip { opacity: clamp(0, calc((var(--hp) - .8) * 6), 1); }
     .stamp { opacity: clamp(0, calc((var(--hp) - .7) * 5), 1); }
-    .hero::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: calc(1 - var(--hp));
-      background: linear-gradient(90deg, transparent calc(50% - 561px), rgba(255, 214, 10, .22) calc(50% - 561px) calc(50% - 560px), transparent calc(50% - 560px) calc(50% + 560px), rgba(255, 214, 10, .22) calc(50% + 560px) calc(50% + 561px), transparent calc(50% + 561px)),
-                  repeating-linear-gradient(0deg, transparent 0 63px, rgba(255, 214, 10, .07) 63px 64px); }
+    .hero::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: calc(1 - var(--hp)); background: none; }
     .hero-hint { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 2; font: 500 .72rem var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--zap); white-space: nowrap; opacity: calc(1 - var(--hp) * 4); pointer-events: none; }
     .hero-inner { position: relative; }
     @media (min-width: 981px) and (min-height: 700px) {
@@ -726,14 +724,18 @@
       .hero.pin + section { padding-top: 56px; }
     }
 
-    /* ---- fundo: grade de projeto; o brilho desce com a página ---- */
-    body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    /* ---- fundo: colunas do layout (20 no desktop) alinhadas ao container, com as bordas em amarelo e uma régua nas laterais.
+       Só linhas verticais: as horizontais são as próprias divisórias entre as seções, então nada fica fora de esquadro. ---- */
+    body { position: relative; --gw: min(var(--max), 100% - 40px); }
+    body::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: calc(var(--gw) + 18px); transform: translateX(-50%); z-index: -1; pointer-events: none;
       background:
-        radial-gradient(ellipse 55% 45% at 90% calc(8% + var(--pg, 0) * 84%), rgba(255, 214, 10, .075), transparent 70%),
-        linear-gradient(rgba(255, 214, 10, .05) 1px, transparent 1px) 0 0 / 192px 192px,
-        linear-gradient(90deg, rgba(255, 214, 10, .05) 1px, transparent 1px) 0 0 / 192px 192px,
-        linear-gradient(rgba(255, 255, 255, .03) 1px, transparent 1px) 0 0 / 48px 48px,
-        linear-gradient(90deg, rgba(255, 255, 255, .03) 1px, transparent 1px) 0 0 / 48px 48px; }
+        linear-gradient(90deg, rgba(255, 214, 10, .13) 1px, transparent 1px, transparent calc(100% - 1px), rgba(255, 214, 10, .13) 0) 9px 0 / calc(100% - 18px) 100% no-repeat,
+        linear-gradient(90deg, rgba(255, 255, 255, .055) 1px, transparent 1px) 9px 0 / calc((100% - 18px) / 20) 100% repeat-x,
+        linear-gradient(rgba(255, 214, 10, .3) 1px, transparent 1px) 0 0 / 9px 56px repeat-y,
+        linear-gradient(rgba(255, 214, 10, .3) 1px, transparent 1px) right 0 top 0 / 9px 56px repeat-y; }
+    body::after { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background: radial-gradient(ellipse 55% 45% at 90% calc(8% + var(--pg, 0) * 84%), rgba(255, 214, 10, .07), transparent 70%); }
+    @media (max-width: 720px) { body::before { background-size: calc(100% - 18px) 100%, calc((100% - 18px) / 6) 100%, 9px 56px, 9px 56px; } }
 
     /* ---- contador de montagem da página ---- */
     .build-hud { position: fixed; left: 20px; bottom: 20px; z-index: 41; display: flex; align-items: center; gap: 12px; padding: 9px 14px; border: 1.5px solid var(--line-strong); border-radius: 10px; background: rgba(10, 10, 13, .86); backdrop-filter: blur(10px); font: 500 .7rem var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); pointer-events: none; }
