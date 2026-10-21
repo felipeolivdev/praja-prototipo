@@ -43,9 +43,9 @@ Tudo o que a página promete aparece nela de alguma forma: o selo "1 dia", o rel
 - **Teste ao vivo em 4 passos:** formato (lista de espera, pré-venda, software ou evento), ideia com sugestão de frase, cor e tom de voz, e prazo. A prévia muda de layout por formato, pode ser vista em modo computador ou celular e troca texto, cor e blocos com transições animadas.
 - **Teste da promessa:** nota de clareza de 0 a 100 para a frase principal (tamanho, benefício, número ou prazo, jargão e leitura), calculada enquanto a pessoa digita. Dá para criar uma **variação B**, comparar as duas lado a lado, ver qual vence e escolher qual aparece na prévia. É uma heurística simples, não uma garantia de conversão.
 - **Horário previsto de entrega** calculado pelo **horário de Brasília** (e não pelo relógio de quem visita), com a regra do corte às 15h, fins de semana e próximo dia útil. A lógica foi testada em vários fusos.
-- **Painel de resultados animado:** as barras crescem em sequência, os números contam até o valor final, e depois o painel simula novas visitas, cliques e cadastros ao vivo (dados ilustrativos). Cada barra mostra um detalhe ao passar o mouse ou receber foco.
-- Galeria que monta cada exemplo peça por peça ao entrar na tela (e de novo na janela ampliada, um `<dialog>` que leva ao WhatsApp com o nome do exemplo na mensagem).
-- Brilho que segue o cursor, spotlight nos cards, inclinação 3D no mockup do hero e linha do tempo que se preenche conforme a leitura.
+- **Painel de resultados:** as barras e a meta crescem conforme a rolagem (dados ilustrativos). Cada barra mostra um detalhe ao passar o mouse ou receber foco.
+- Galeria em que cada exemplo se monta peça por peça conforme a rolagem (a janela ampliada é um `<dialog>` que leva ao WhatsApp com o nome do exemplo na mensagem).
+- **A página se constrói conforme a rolagem:** um só mecanismo. O JavaScript entrega a cada bloco um progresso `--p` (0 a 1) ligado à posição de rolagem, e o CSS decide o resto: a linha do bloco se desenha, ele preenche o esboço e o conteúdo entra. Sem temporizadores, sem parallax, nada passa de 600 ms, `prefers-reduced-motion` mostra tudo pronto e, sem JavaScript, o conteúdo já aparece completo. A linha do tempo do processo usa a mesma ideia.
 - Poucos caminhos para o WhatsApp, cada um com um papel: topo (desktop) ou barra fixa (celular), hero, briefing, pacotes e CTA final. As faixas do meio levam ao briefing.
 - No celular, um botão "voltar ao topo" aparece depois que a pessoa rola a página até o fim (e some ao voltar ao início); fica acima da barra fixa e respeita `prefers-reduced-motion`.
 - No celular, menu compacto e uma faixa que mostra a prévia do briefing ao vivo enquanto a pessoa preenche.
@@ -61,17 +61,17 @@ Tudo o que a página promete aparece nela de alguma forma: o selo "1 dia", o rel
 
 ## Identidade visual
 
-O conceito é **velocidade elétrica**: tudo na página deriva do raio do logotipo.
+O conceito é **clareza**: fundo claro, uma única cor de destaque, uma única família tipográfica e linhas finas no lugar de sombras. O raio do logotipo, em três traços retos, é o único símbolo.
 
 | Elemento | Decisão |
 |---|---|
-| **Cores** | Fundo escuro (`#0a0a0d`), texto creme (`#f6f4ec`) e **amarelo-raio** (`#ffd60a`) usado só como destaque |
-| **Formas** | Paralelogramos inclinados em botões, grifos, selo e marcadores, na mesma inclinação do raio |
+| **Cores** | Fundo branco e cinza muito claro (`#ffffff`, `#f6f8fa`), texto em cinza-ardósia (`#1e293b`) e **azul** (`#1d4ed8`) como única cor de destaque |
+| **Formas** | Cantos retos ou com raio de até 4px, linhas de 1px e nenhuma sombra pesada |
 | **Ícones** | Conjunto próprio de ícones de traço (SVG), com o mesmo desenho |
-| **Tipografia** | **Archivo** na largura expandida nos títulos, **Inter** no texto e **JetBrains Mono** nos detalhes técnicos |
-| **Detalhes** | Filete amarelo no topo dos blocos-chave, divisores inclinados entre as seções e movimento seco e rápido |
+| **Tipografia** | **Inter**, a única família, com muito espaço em branco |
+| **Logotipo** | SVG em azul único, sem gradiente: um raio de três traços retos ao lado do nome. O favicon e o `apple-touch-icon` derivam dele |
 
-A galeria é de propósito um contraponto: cada exemplo (Grana, Torra, Fluxo e Sprint Zero) tem cores, fontes e layout próprios, para mostrar que dá para fazer qualquer coisa.
+A galeria e as cores do seletor do briefing são de propósito um contraponto: cada exemplo (Grana, Torra, Fluxo e Sprint Zero) tem cores, fontes e layout próprios, para mostrar que dá para fazer qualquer coisa.
 
 ## Estrutura do projeto
 
