@@ -690,6 +690,8 @@
     .sw { display: inline-block; --o: clamp(0, calc((var(--p) * 1.7 - var(--wk, 0) * .9) * 5), 1); opacity: var(--o); transform: translateY(calc((1 - var(--o)) * .45em)); filter: blur(calc((1 - var(--o)) * 5px)); }
     .reveal.done .sw { opacity: 1; transform: none; filter: none; }
     .reveal.done { clip-path: none; }
+    .brief-side.reveal { position: relative; }
+    @media (min-width: 981px) and (min-height: 780px) { .brief-side.reveal { position: sticky; top: 92px; } }
 
     /* ---- hero: o texto vira um site conforme a rolagem ---- */
     .hero { --hp: 1; }
@@ -719,9 +721,9 @@
     .hero-hint { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 2; font: 500 .72rem var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--zap); white-space: nowrap; opacity: calc(1 - var(--hp) * 4); pointer-events: none; }
     .hero-inner { position: relative; }
     @media (min-width: 981px) and (min-height: 700px) {
-      .hero.pin { padding: 0; height: calc(100vh + 90vh); overflow: visible; overflow-x: clip; }
-      .hero.pin .hero-inner { position: sticky; top: 0; height: 100vh; padding-top: clamp(104px, 15vh, 150px); align-items: start; }
-      .hero.pin + section { padding-top: 56px; }
+      .hero.pin { padding: 0; overflow: visible; overflow-x: clip; }
+      .hero.pin .hero-inner { position: sticky; top: max(0px, calc((100vh - var(--hh, 100vh)) / 2)); padding: 104px 0 36px; align-items: center; }
+      .hero.pin + section { padding-top: 40px; }
     }
 
     /* ---- fundo: colunas do layout (20 no desktop) alinhadas ao container, com as bordas em amarelo e uma régua nas laterais.
@@ -752,6 +754,7 @@
       section { padding: 76px 0; }
       .hero { padding: 128px 0 56px; }
       .hero-inner, .brief, .split, .results { grid-template-columns: 1fr; }
+      .brief-top { grid-template-columns: minmax(0, 1fr); }
       .brief-side { position: static; }
       .browser { transform: none !important; }
       .float-chip.c1 { right: 6px; } .float-chip.c2 { left: 6px; }
@@ -1038,6 +1041,49 @@
       .back-top:active::before { filter: brightness(.9); }
     }
     @media (prefers-reduced-motion: reduce) { .back-top { transition: opacity .2s; transform: none; } }
+    /* ---- briefing: colunas equilibradas, prévia de página completa e checklist do que falta definir ---- */
+    .brief { display: block; }
+    .brief-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 36px; align-items: start; }
+    .brief-below { margin-top: 28px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr) minmax(0, 1fr); gap: 16px; align-items: stretch; }
+    .brief-below .summary { grid-template-columns: minmax(0, 1fr); align-content: start; }
+    .brief-below .send { display: grid; gap: 12px; align-content: start; }
+    .bens-in { display: grid; gap: 8px; }
+    .field label small { text-transform: none; letter-spacing: 0; font-family: var(--font-body); color: var(--muted); font-size: .78rem; }
+    .pv-body { display: block; justify-items: stretch; align-content: normal; padding: 0; min-height: 0; text-align: left; background: var(--surface); }
+    .pv-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 18px; border-bottom: 1.5px solid var(--line); }
+    .pv-links { display: flex; gap: 14px; font-size: .7rem; color: var(--muted); } .pv-links i { font-style: normal; }
+    .pv-navcta { flex-shrink: 0; padding: 6px 12px; border-radius: 8px; background: var(--pa); color: var(--pt, #0a0a0d); font-size: .68rem; font-weight: 700; white-space: nowrap; }
+    .pv-hero { display: grid; justify-items: start; gap: 10px; padding: 24px 20px 20px; background: radial-gradient(420px 220px at 30% 0, color-mix(in srgb, var(--pa) 22%, transparent), transparent 72%); }
+    .pv-chip { font: 500 .64rem var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--pa); padding: 4px 9px; border-radius: 6px; border: 1.5px solid color-mix(in srgb, var(--pa) 50%, transparent); }
+    .pv-title { font-size: clamp(1.45rem, 2.5vw, 2rem); }
+    .preview[data-dev="mobile"] .pv-title { font-size: 1.45rem; }
+    .pv-aud { font-size: .8rem; color: var(--fg); }
+    .pv-sub { max-width: 40ch; font-size: .9rem; }
+    .pv-offer { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 10px; border: 1.5px solid var(--line-strong); background: var(--bg); font-size: .78rem; font-weight: 600; max-width: 100%; }
+    .pv-offer .ic { color: var(--pa); }
+    .pv-offer span { min-width: 0; overflow-wrap: anywhere; }
+    .pv-bens { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 0 20px 18px; }
+    .pv-ben { display: grid; gap: 6px; align-content: start; padding: 10px; border-radius: 10px; border: 1.5px solid var(--line-strong); background: var(--bg); font-size: .74rem; line-height: 1.3; }
+    .pv-ben .ic { color: var(--pa); font-size: 1.1rem; }
+    .pv-ben b { font-weight: 600; overflow-wrap: anywhere; }
+    .pv-foot { display: flex; justify-content: space-between; gap: 10px; padding: 9px 18px; border-top: 1.5px solid var(--line); font-size: .66rem; color: var(--muted); }
+    .pv-aud.missing, .pv-offer.missing, .pv-ben.missing { border: 1.5px dashed color-mix(in srgb, var(--pa) 55%, transparent); background: transparent; color: var(--muted); font-weight: 400; }
+    .pv-aud.missing { padding: 5px 10px; border-radius: 8px; font-size: .74rem; }
+    .pv-ben.missing .ic, .pv-offer.missing .ic { color: var(--muted); }
+    .preview[data-dev="mobile"] .pv-links { display: none; }
+    .preview[data-dev="mobile"] .pv-bens { grid-template-columns: minmax(0, 1fr); }
+    .def-card { padding: 14px 16px 12px; border-radius: 14px; background: var(--surface); border: 1.5px solid var(--line); }
+    .def-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+    .def-head strong { font-family: var(--font-display); font-weight: 800; font-size: 1rem; letter-spacing: -.02em; }
+    .def-head span { font: 500 .72rem var(--font-mono); letter-spacing: .08em; color: var(--zap); text-transform: uppercase; }
+    .def-bar { height: 5px; border-radius: 5px; background: var(--line); margin: 10px 0 8px; overflow: hidden; }
+    .def-bar i { display: block; height: 100%; width: 0; background: var(--zap); border-radius: 5px; transition: width .4s var(--snap); }
+    .def-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2px 14px; }
+    .def-list button { display: flex; align-items: center; gap: 8px; width: 100%; padding: 5px 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: .82rem; text-align: left; cursor: pointer; }
+    .def-list button:hover { color: var(--fg); }
+    .def-list i { flex-shrink: 0; width: 16px; height: 16px; border-radius: 50%; border: 1.5px dashed var(--line-strong); font-style: normal; font-size: .62rem; line-height: 13px; text-align: center; }
+    .def-list .ok { color: var(--fg); } .def-list .ok i { border: 0; background: var(--zap); color: var(--on-zap); line-height: 16px; font-weight: 700; }
+    @media (max-width: 980px) { .brief-top, .brief-below { grid-template-columns: minmax(0, 1fr); gap: 16px; } .brief-below { margin-top: 16px; } .def-list { grid-template-columns: 1fr; } }
   </style>
 </head>
 
@@ -1460,7 +1506,7 @@
       <div class="container">
         <div class="section-head reveal">
           <span class="eyebrow">Briefing em 1 minuto</span>
-          <h2>Monte o briefing do seu site em <span class="grad">quatro passos</span>.</h2>
+          <h2>Monte o briefing do seu site em <span class="grad">cinco passos</span>.</h2>
           <p>Teste a ideia ao vivo, com nota de clareza e comparação entre duas frases, ou escreva o briefing. Nos dois casos, a mensagem sai pronta para o WhatsApp.</p>
         </div>
 
@@ -1473,6 +1519,7 @@
         <div id="modeLive" role="tabpanel" aria-labelledby="tabLive">
         <div class="brief">
           <div class="pv-mini" aria-hidden="true"><i></i><b id="pmBrand">Sua Startup</b><span id="pmTitle">Sua grande ideia começa aqui</span><em>● ao vivo</em></div>
+          <div class="brief-top">
           <div class="brief-form reveal">
             <fieldset class="step">
               <legend><b>1</b> Que teste você quer fazer?</legend>
@@ -1501,10 +1548,30 @@
                   <button type="button" class="suggest" id="suggestB" title="Gerar uma variação B"><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg> Gerar B</button>
                 </div>
               </div>
+              <div class="field">
+                <label for="inAud">Para quem é</label>
+                <input id="inAud" maxlength="52" placeholder="Ex.: quem mora sozinho e controla tudo em planilha" autocomplete="off" />
+              </div>
             </fieldset>
 
             <fieldset class="step">
-              <legend><b>3</b> Dê a cara</legend>
+              <legend><b>3</b> Defina a oferta</legend>
+              <div class="field">
+                <label for="inBen1">O que a pessoa ganha <small>(até 3 benefícios curtos)</small></label>
+                <div class="bens-in">
+                  <input id="inBen1" maxlength="34" placeholder="Ex.: Contas num só lugar" aria-label="Benefício 1" autocomplete="off" />
+                  <input id="inBen2" maxlength="34" placeholder="Ex.: Metas sem planilha" aria-label="Benefício 2" autocomplete="off" />
+                  <input id="inBen3" maxlength="34" placeholder="Ex.: Alertas de gasto" aria-label="Benefício 3" autocomplete="off" />
+                </div>
+              </div>
+              <div class="field">
+                <label for="inOffer" id="offerLabel">O que a pessoa ganha ao entrar</label>
+                <input id="inOffer" maxlength="40" placeholder="Ex.: Acesso antecipado e 30 dias grátis" autocomplete="off" />
+              </div>
+            </fieldset>
+
+            <fieldset class="step">
+              <legend><b>4</b> Dê a cara</legend>
               <div class="row2">
                 <div class="field">
                   <label>Cor</label>
@@ -1528,7 +1595,7 @@
             </fieldset>
 
             <fieldset class="step">
-              <legend><b>4</b> Para quando?</legend>
+              <legend><b>5</b> Para quando?</legend>
               <div class="field" style="margin-top:12px">
                 <select id="inWhen" aria-label="Prazo">
                   <option value="Preciso para amanhã">Preciso para amanhã</option>
@@ -1551,18 +1618,40 @@
                   <div class="url"><span id="pvUrl">suastartup.com</span><em style="opacity:1">● ao vivo</em></div>
                 </div>
                 <div class="pv-body">
-                  <span class="pv-brand"><b></b><span id="pvBrand">Sua Startup</span></span>
-                  <div class="pv-date" data-for="event"><strong>12</strong><small>NOV · 19H</small></div>
-                  <div class="pv-prod" data-for="sale"><span><svg class="ic" aria-hidden="true"><use href="#i-box"/></svg></span><div><small>Pré-venda</small><b>R$ 49 <s style="font-weight:400;color:var(--muted);font-size:.8rem">R$ 79</s></b></div></div>
-                  <div class="pv-title" id="pvTitle">Sua grande ideia começa aqui</div>
-                  <div class="pv-sub" id="pvSub"></div>
-                  <div class="pv-feats" data-for="saas"><span><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg> Rápido</span><span><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg> Seguro</span><span><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg> Relatórios</span></div>
-                  <div class="pv-mail" data-for="wait"><span>seu@email.com</span><b id="pvCtaMail">Entrar na lista</b></div>
-                  <span class="pv-cta" id="pvCta" data-for="sale saas event">Garantir o meu</span>
+                  <div class="pv-nav">
+                    <span class="pv-brand"><b></b><span id="pvBrand">Sua Startup</span></span>
+                    <span class="pv-links" aria-hidden="true"><i>Benefícios</i><i>Oferta</i></span>
+                    <span class="pv-navcta" id="pvNavCta">Entrar na lista</span>
+                  </div>
+                  <div class="pv-hero">
+                    <span class="pv-chip" id="pvChip">Lista de espera</span>
+                    <div class="pv-title" id="pvTitle">Sua grande ideia começa aqui</div>
+                    <div class="pv-aud" id="pvAud"></div>
+                    <div class="pv-sub" id="pvSub"></div>
+                    <div class="pv-mail" data-for="wait"><span>seu@email.com</span><b id="pvCtaMail">Entrar na lista</b></div>
+                    <span class="pv-cta" id="pvCta" data-for="sale saas event">Garantir o meu</span>
+                    <div class="pv-offer" id="pvOffer"><svg class="ic" aria-hidden="true"><use id="pvOfferIc" href="#i-mail"/></svg><span id="pvOfferTx"></span></div>
+                  </div>
+                  <div class="pv-bens" id="pvBens">
+                    <div class="pv-ben"><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg><b></b></div>
+                    <div class="pv-ben"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg><b></b></div>
+                    <div class="pv-ben"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><b></b></div>
+                  </div>
+                  <div class="pv-foot"><span id="pvFoot">Sua Startup</span><span>página de teste</span></div>
                 </div>
               </div>
             </div>
 
+            <div class="def-card" id="defCard">
+              <div class="def-head"><strong>O que ainda falta definir</strong><span id="defCount">0 de 5</span></div>
+              <div class="def-bar"><i id="defBar"></i></div>
+              <ul class="def-list" id="defList"></ul>
+            </div>
+          </div>
+
+          </div>
+
+          <div class="brief-below reveal">
             <div class="test-card" id="testCard">
               <div class="tc-head"><strong>Teste da promessa</strong><span class="pill">heurística simples</span></div>
               <div class="tc-grid">
@@ -1589,9 +1678,11 @@
               <div class="sum-row"><small>No ar até</small><b id="sumEta">amanhã</b><span id="sumEtaWhy"></span></div>
             </div>
 
-            <div class="wa-bubble" aria-live="polite"><small>Mensagem que será enviada</small><p id="waMsg"></p></div>
-            <a class="btn btn-primary js-wa" href="#" id="demoCta">Enviar briefing no WhatsApp <span class="arrow">→</span></a>
-            <p class="demo-note">A prévia é só uma amostra. A página final é desenhada sob medida para você.</p>
+            <div class="send">
+              <div class="wa-bubble" aria-live="polite"><small>Mensagem que será enviada</small><p id="waMsg"></p></div>
+              <a class="btn btn-primary js-wa" href="#" id="demoCta">Enviar briefing no WhatsApp <span class="arrow">→</span></a>
+              <p class="demo-note">A prévia é só uma amostra. A página final é desenhada sob medida para você.</p>
+            </div>
           </div>
         </div>
         </div>
@@ -1606,6 +1697,8 @@
                   <button type="button" data-ins="Quem somos: ">+ Quem somos</button>
                   <button type="button" data-ins="Quero testar: ">+ O que testar</button>
                   <button type="button" data-ins="Público: ">+ Público</button>
+                  <button type="button" data-ins="Benefícios: ">+ Benefícios</button>
+                  <button type="button" data-ins="Oferta: ">+ Oferta</button>
                   <button type="button" data-ins="Tom e cores: ">+ Tom e cores</button>
                   <button type="button" data-ins="Prazo: ">+ Prazo</button>
                 </div>
@@ -1916,7 +2009,13 @@
         const vh = innerHeight;
         const pin = pinMQ.matches;
         hero.classList.toggle("pin", pin);
-        const span = pin ? Math.max(1, hero.offsetHeight - vh) : vh * .6;
+        const inner = $(".hero-inner", hero);
+        if (pin) {
+          const hh = inner.offsetHeight;
+          hero.style.setProperty("--hh", hh + "px");
+          hero.style.height = (hh + vh * .9) + "px";
+        } else hero.style.height = "";
+        const span = pin ? vh * .9 : vh * .6;
         heroT = clamp01(scrollY / span);
         if (!isFinite(heroT)) heroT = 1;
         if (!isFinite(heroC)) heroC = -1;
@@ -2080,12 +2179,20 @@
                  cta: { direct: "Garantir minha vaga", friendly: "Quero participar!", serious: "Inscrever-me" },
                  tags: ["{n}: uma noite para virar a chave.", "Participe de {n} e leve ideias para aplicar amanhã.", "{n}: vagas limitadas, conteúdo de verdade."] }
       };
+      const OFFERS = {
+        wait:  { label: "O que a pessoa ganha ao entrar", ph: "Ex.: Acesso antecipado e 30 dias grátis", pre: "", icon: "#i-mail", miss: "Defina o que a pessoa ganha ao entrar" },
+        sale:  { label: "Preço da pré-venda", ph: "Ex.: R$ 49 (de R$ 79)", pre: "Pré-venda: ", icon: "#i-cart", miss: "Defina o preço da pré-venda" },
+        saas:  { label: "Plano ou condição de acesso", ph: "Ex.: Grátis por 14 dias", pre: "", icon: "#i-modules", miss: "Defina o plano ou a condição de acesso" },
+        event: { label: "Data e horário", ph: "Ex.: 12 nov, 19h, online", pre: "", icon: "#i-ticket", miss: "Defina a data e o horário" }
+      };
       const TONES = { direct: "Direto", friendly: "Amigável", serious: "Sério" };
       const EXAMPLE = [
         "Somos a Grana, um app de finanças pessoais para quem mora sozinho.",
         "Quero testar se as pessoas deixam o e-mail para entrar na fila.",
         "Público: 20 a 30 anos, que hoje controlam tudo em planilha.",
         "Promessa: organizar as contas do mês sem planilha.",
+        "Benefícios: contas num só lugar; metas sem planilha; alertas de gasto.",
+        "Oferta: acesso antecipado e 30 dias grátis.",
         "Tom: direto e leve. Cores: verde-escuro e lima.",
         "Prazo: preciso para amanhã."
       ].join("\n");
@@ -2096,6 +2203,11 @@
       const brand = $("#pvBrand"), title = $("#pvTitle"), sub = $("#pvSub"), url = $("#pvUrl");
       const cta = $("#demoCta"), msg = $("#waMsg"), pvCta = $("#pvCta"), pvMail = $("#pvCtaMail"), pvBody = $(".pv-body", pv);
       const brief = $(".brief"), pmBrand = $("#pmBrand"), pmTitle = $("#pmTitle");
+      const inAud = $("#inAud"), inBens = [$("#inBen1"), $("#inBen2"), $("#inBen3")], inOffer = $("#inOffer"), offerLabel = $("#offerLabel");
+      const pvChip = $("#pvChip"), pvAud = $("#pvAud"), pvOffer = $("#pvOffer"), pvOfferTx = $("#pvOfferTx"), pvOfferIc = $("#pvOfferIc"), pvNavCta = $("#pvNavCta"), pvFoot = $("#pvFoot");
+      const pvBenEls = $$(".pv-ben", pv);
+      const defList = $("#defList"), defCount = $("#defCount"), defBar = $("#defBar");
+      st.offers = {};
       const sumPlan = $("#sumPlan"), sumPlanWhy = $("#sumPlanWhy"), sumEta = $("#sumEta"), sumEtaWhy = $("#sumEtaWhy");
 
       /* ---- transições ---- */
@@ -2230,13 +2342,46 @@
         const T = TYPES[st.type];
         const name = inName.value.trim(), tagA = inTag.value.trim(), tagB = inTagB.value.trim(), when = inWhen.value;
         const shown = st.show === "B" && tagB ? tagB : tagA;
-        const typing = src === "name" || src === "tag" || src === "tagB";
+        const typing = src === "name" || src === "tag" || src === "tagB" || src === "aud" || src === "ben" || src === "offer";
         swap(brand, name || "Sua Startup", "type");
         swap(title, shown || "Sua grande ideia começa aqui", typing ? "type" : "morph");
         swap(sub, T.sub[st.tone], "morph");
         const slug = name.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]/g, "");
         url.textContent = (slug || "suastartup") + ".com";
-        swap(pvCta, T.cta[st.tone], "morph"); swap(pvMail, T.cta[st.tone], "morph");
+        swap(pvCta, T.cta[st.tone], "morph"); swap(pvMail, T.cta[st.tone], "morph"); swap(pvNavCta, T.cta[st.tone], "morph");
+
+        /* o que a startup precisa definir: cada campo vira um bloco da página; o que falta aparece tracejado */
+        const aud = inAud.value.trim(), bens = inBens.map((i) => i.value.trim()), offer = inOffer.value.trim(), O = OFFERS[st.type];
+        const fill = (el, text, miss, mode) => { swap(el, text, mode); el.classList.toggle("missing", miss); };
+        const typing2 = typing || src === "aud" || src === "ben" || src === "offer";
+        swap($("#pvChip"), T.label, "morph");
+        fill(pvAud, aud ? "Para " + aud : "Defina para quem é a página", !aud, typing2 ? "type" : "morph");
+        fill(pvOfferTx, offer ? O.pre + offer : O.miss, !offer, typing2 ? "type" : "morph");
+        pvOffer.classList.toggle("missing", !offer); pvOfferIc.setAttribute("href", O.icon);
+        pvBenEls.forEach((el, i) => fill($("b", el), bens[i] || "Defina o benefício " + (i + 1), !bens[i], typing2 ? "type" : "morph"));
+        pvBenEls.forEach((el, i) => el.classList.toggle("missing", !bens[i]));
+        swap(pvFoot, name || "Sua Startup", "type");
+        const nb = bens.filter(Boolean).length;
+        const defs = [
+          { ok: !!name, label: "Nome da startup", el: inName },
+          { ok: !!tagA, label: "Promessa em uma frase", el: inTag },
+          { ok: !!aud, label: "Para quem é", el: inAud },
+          { ok: nb >= 3, label: nb ? `Benefícios (${nb} de 3)` : "Três benefícios", el: inBens[Math.max(0, bens.findIndex((x) => !x))] },
+          { ok: !!offer, label: O.label, el: inOffer }
+        ];
+        if (!defList.children.length) defs.forEach((d) => {
+          const li = document.createElement("li"), b = document.createElement("button");
+          b.type = "button"; b.innerHTML = "<i></i><span></span>";
+          li.append(b); defList.append(li);
+        });
+        defs.forEach((d, i) => {
+          const b = defList.children[i].firstChild;
+          b.className = d.ok ? "ok" : ""; $("i", b).textContent = d.ok ? "✓" : ""; $("span", b).textContent = d.label;
+          b.onclick = () => { d.el.focus(); d.el.scrollIntoView({ block: "center", behavior: motion ? "smooth" : "auto" }); };
+        });
+        const nd = defs.filter((d) => d.ok).length;
+        defCount.textContent = nd === defs.length ? "Briefing completo" : `${nd} de ${defs.length}`;
+        defBar.style.width = (nd / defs.length * 100) + "%";
         $$("[data-for]", pv).forEach((el) => { el.hidden = !el.dataset.for.split(" ").includes(st.type); });
         if (src === "type") buildIn(pvBody);
         pv.style.setProperty("--pa", st.color.a); pv.style.setProperty("--pb", st.color.b);
@@ -2255,6 +2400,7 @@
           `Ideia${tagB ? " A" : ""}: ${tagA ? clean(tagA) : "(a definir)"}.`
         ];
         if (tagB) lines.push(`Ideia B: ${clean(tagB)}. Quero testar as duas${V.A.res && V.B.res ? ` (clareza: A ${V.A.res.score}, B ${V.B.res.score})` : ""}.`);
+        lines.push(`Público: ${aud ? clean(aud) : "(a definir)"}.`, `Benefícios: ${nb ? bens.filter(Boolean).map(clean).join("; ") : "(a definir)"}.`, `${O.label}: ${offer ? clean(offer) : "(a definir)"}.`);
         lines.push(`Cor: ${st.color.name}. Tom: ${TONES[st.tone]}.`, `Prazo: ${when}.`, `Pacote que vi: ${T.plan}.`);
         const text = lines.join("\n");
         msg.textContent = text;
@@ -2281,7 +2427,16 @@
           n.click(); n.focus();
         });
       }
-      pick($("#types"), ".type", (b) => { st.type = b.dataset.type; st.tagIdx = 0; st.tagIdxB = 1; }, true, "type");
+      function applyOfferField() {
+        const O = OFFERS[st.type];
+        offerLabel.textContent = O.label; inOffer.placeholder = O.ph;
+      }
+      pick($("#types"), ".type", (b) => {
+        st.offers[st.type] = inOffer.value;
+        st.type = b.dataset.type; st.tagIdx = 0; st.tagIdxB = 1;
+        inOffer.value = st.offers[st.type] || "";
+        applyOfferField();
+      }, true, "type");
       pick($("#tones"), "button", (b) => { st.tone = b.dataset.tone; }, false, "tone");
       pick($("#swatches"), "button", (b) => { st.color = { a: b.dataset.a, b: b.dataset.b, name: b.dataset.name }; }, false, "color");
       pick($("#devs"), "button", (b) => { pv.dataset.dev = b.dataset.dev; }, false, "dev");
@@ -2306,6 +2461,10 @@
       inTag.addEventListener("input", () => update("tag"));
       inTagB.addEventListener("input", () => update("tagB"));
       inWhen.addEventListener("change", () => update("when"));
+      inAud.addEventListener("input", () => update("aud"));
+      inBens.forEach((i) => i.addEventListener("input", () => update("ben")));
+      inOffer.addEventListener("input", () => update("offer"));
+      applyOfferField();
 
       /* ---- briefing escrito à mão ---- */
       const wrText = $("#wrText"), wrCount = $("#wrCount"), wrMsg = $("#wrMsg"), wrCta = $("#wrCta"), wrHint = $("#wrHint");
