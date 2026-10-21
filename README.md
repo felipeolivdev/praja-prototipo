@@ -2,9 +2,9 @@
 
 # PraJá.studio
 
-**Quer uma página pro seu negócio? É PraJá.**
+**Quer montar a página da sua startup? É PraJá.**
 
-Landing page de um estúdio fictício que entrega páginas para startups em **um dia**.
+Landing page de um estúdio fictício que entrega páginas para startups em **24 horas**.
 Projeto de estudo feito com HTML, CSS e JavaScript puros, em um único arquivo.
 
 [**Ver demo ao vivo →**](https://praja-studio.vercel.app)
@@ -29,7 +29,7 @@ Tudo o que a página promete aparece nela de alguma forma: o selo "1 dia", o rel
 |---|---|
 | **Hero** | Promessa principal, mockup de navegador que começa pronto e de tempos em tempos "refaz" a página, e CTA para o WhatsApp, mais a previsão de entrega calculada na hora (horário de Brasília) e uma faixa com os fatos da oferta |
 | **Comparação** | Agência × no-code sozinho × PraJá, em prazo, esforço, preço, copy e design e posse da página |
-| **Processo** | Como cabe tudo em um dia, horário de corte (15h) e linha do tempo guiada pelo scroll |
+| **Processo** | Como cabe tudo em 24 horas, horário de corte (15h) e linha do tempo guiada pelo scroll |
 | **Exemplos** | Galeria de quatro páginas fictícias (lista de espera, pré-venda, software e evento) com identidades visuais diferentes, que se montam peça por peça ao entrar na tela e podem ser ampliadas |
 | **Resultados** | Painel ilustrativo de teste de demanda e o que a pessoa leva depois da entrega |
 | **Briefing** | Duas formas de preencher: teste ao vivo (prévia, nota de clareza e comparação A/B) ou briefing escrito à mão, com pacote indicado e horário previsto de entrega |
