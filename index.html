@@ -965,17 +965,62 @@
       .sticky-cta .btn { padding: 10px 18px; font-size: .84rem; }
     }
     /* Voltar ao topo (só no celular, depois de rolar a página inteira) */
-    .to-top { display: none; }
+    .back-top { display: none; }
     @media (max-width: 980px) {
-      .to-top { position: fixed; right: 14px; bottom: 16px; z-index: 43; width: 46px; height: 46px; padding: 0; border: 0; background: none; color: var(--on-zap); cursor: pointer; -webkit-tap-highlight-color: transparent; opacity: 0; transform: translateY(16px) scale(.8); pointer-events: none; transition: opacity .3s, transform .35s var(--snap), bottom .35s var(--snap); }
-      .sticky-cta.show ~ .to-top { bottom: 82px; }
-      .to-top:not([hidden]) { display: flex; align-items: center; justify-content: center; }
-      .to-top::before { content: ""; position: absolute; inset: 0; border-radius: 10px; background: var(--zap); transform: skewX(var(--skew)); box-shadow: 0 8px 22px rgba(0, 0, 0, .5), 0 0 0 1.5px rgba(10, 10, 13, .6); }
-      .to-top .ic { position: relative; width: 22px; height: 22px; margin: auto; vertical-align: 0; stroke-width: 2.4; }
-      .to-top.show { opacity: 1; transform: none; pointer-events: auto; }
-      .to-top:active::before { filter: brightness(.9); }
+      .back-top { position: fixed; right: 14px; bottom: 16px; z-index: 43; width: 46px; height: 46px; padding: 0; border: 0; background: none; color: var(--on-zap); cursor: pointer; -webkit-tap-highlight-color: transparent; opacity: 0; transform: translateY(16px) scale(.8); pointer-events: none; transition: opacity .3s, transform .35s var(--snap), bottom .35s var(--snap); }
+      .sticky-cta.show ~ .back-top { bottom: 82px; }
+      .back-top:not([hidden]) { display: flex; align-items: center; justify-content: center; }
+      .back-top::before { content: ""; position: absolute; inset: 0; border-radius: 10px; background: var(--zap); transform: skewX(var(--skew)); box-shadow: 0 8px 22px rgba(0, 0, 0, .5), 0 0 0 1.5px rgba(10, 10, 13, .6); }
+      .back-top .ic { position: relative; width: 22px; height: 22px; margin: auto; vertical-align: 0; stroke-width: 2.4; }
+      .back-top.show { opacity: 1; transform: none; pointer-events: auto; }
+      .back-top:active::before { filter: brightness(.9); }
     }
-    @media (prefers-reduced-motion: reduce) { .to-top { transition: opacity .2s; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { .back-top { transition: opacity .2s; transform: none; } }
+    /* ---- Venda: faixa de fatos, previsão, para quem é, microcopy ---- */
+    .eta-pill { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border: 1.5px solid var(--line-strong); border-radius: 12px; background: var(--surface); font-family: var(--font-body); font-size: .92rem; color: var(--muted); }
+    .eta-pill .ic { color: var(--zap); }
+    .eta-pill b { color: var(--fg); font-weight: 600; }
+    .facts-wrap { padding: 8px 0 0; }
+    .facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1.5px solid var(--line-strong); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+    .facts > div { padding: 24px 26px; border-left: 1.5px solid var(--line); }
+    .facts > div:first-child { border-left: 0; }
+    .facts b { display: block; font-family: var(--font-display); font-stretch: 112%; font-weight: 800; font-size: 2.2rem; line-height: 1; letter-spacing: -.04em; color: var(--zap); }
+    .facts span { display: block; margin-top: 8px; color: var(--muted); font-size: .92rem; }
+    .plan .fine { display: block; margin-top: 12px; text-align: center; color: var(--muted); font-size: .78rem; line-height: 1.4; }
+    .pay-note { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 28px; color: var(--muted); font-size: .95rem; text-align: left; }
+    .pay-note .ic { color: var(--zap); font-size: 1.4rem; }
+    .pay-note b { color: var(--fg); font-weight: 600; }
+    .fit { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+    .fit-col { padding: 28px 30px; border: 1.5px solid var(--line-strong); border-radius: var(--radius); background: var(--surface); }
+    .fit-col.yes { box-shadow: inset 0 3px 0 var(--zap); }
+    .fit-col h3 { font-size: 1.3rem; letter-spacing: -.03em; margin-bottom: 18px; }
+    .fit-col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+    .fit-col li { position: relative; padding-left: 30px; color: var(--muted); font-size: .98rem; line-height: 1.5; }
+    .fit-col li::before { content: ""; position: absolute; left: 0; top: .15em; width: 19px; height: 19px; border-radius: 50%; }
+    .fit-col.yes li::before { background: var(--zap) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a0a0d' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 12px no-repeat; }
+    .fit-col.no li::before { border: 1.5px solid var(--line-strong); background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239a9aa6' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='m7 7 10 10M17 7 7 17'/%3E%3C/svg%3E") center / 10px no-repeat; }
+    .fit-col > p { margin-top: 18px; padding-top: 16px; border-top: 1.5px solid var(--line); color: var(--muted); font-size: .9rem; }
+    #para-quem .cta-strip { margin-top: 28px; }
+    .cta-box p b { color: var(--fg); font-weight: 600; }
+    .cta-chips { list-style: none; padding: 0; margin: 26px 0 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; color: var(--muted); font-size: .88rem; }
+    .cta-chips li::before { content: "\2713"; color: var(--zap); font-weight: 700; margin-right: 7px; }
+    .foot-nav { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+    .foot-nav a { color: var(--muted); text-decoration: none; }
+    .foot-nav a:hover { color: var(--zap); }
+    @media (max-width: 980px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } .facts > div:nth-child(3) { border-left: 0; } .facts > div:nth-child(n+3) { border-top: 1.5px solid var(--line); } .fit { grid-template-columns: minmax(0, 1fr); } }
+    @media (max-width: 560px) {
+      .eta-pill { padding: 8px 12px; font-size: .8rem; gap: 8px; }
+      .facts > div { padding: 14px 16px; }
+      .facts b { font-size: 1.6rem; }
+      .facts span { font-size: .8rem; margin-top: 5px; }
+      .fit { gap: 14px; }
+      .fit-col { padding: 20px 18px; }
+      .fit-col h3 { font-size: 1.1rem; margin-bottom: 12px; }
+      .fit-col li { font-size: .9rem; }
+      .pay-note { margin-top: 18px; font-size: .85rem; }
+      .cta-chips { margin-top: 18px; font-size: .8rem; gap: 6px 14px; }
+      .foot-nav { gap: 4px 14px; }
+    }
   </style>
 </head>
 
@@ -1053,7 +1098,7 @@
             <a class="btn btn-ghost" href="#demo">Testar ao vivo <span class="arrow">→</span></a>
           </div>
           <div class="hero-trust">
-            <span><b>»</b> Sem reuniões longas &nbsp; <b>»</b> Preço fechado &nbsp; <b>»</b> Entrega em 24h</span>
+            <span class="eta-pill"><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg><span>Fechando agora, sua página fica no ar <b id="heroEta">em 24 horas</b></span></span>
           </div>
         </div>
 
@@ -1082,6 +1127,18 @@
           <div class="stamp" aria-hidden="true"><small>PRONTO EM</small><strong>1</strong><span>DIA</span></div>
           <div class="float-chip c1"><span style="color:var(--zap)">●</span> Lead capturado</div>
           <div class="float-chip c2"><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg> Carrega em &lt; 1s</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Facts ===== -->
+    <section class="facts-wrap" aria-label="Resumo da oferta">
+      <div class="container">
+        <div class="facts reveal">
+          <div><b>24h</b><span>do briefing ao ar</span></div>
+          <div><b>R$ 0</b><span>de mensalidade</span></div>
+          <div><b>100%</b><span>sua, sem contrato</span></div>
+          <div><b>1 + 1</b><span>conversa e revisão</span></div>
         </div>
       </div>
     </section>
@@ -1530,6 +1587,7 @@
               <li>Landing page de 1 tela</li><li>Copy básica</li><li>Botão para WhatsApp</li><li>Publicação com link gratuito</li><li>Entrega em 24h</li>
             </ul>
             <a class="btn btn-ghost js-wa" href="#" data-plan="Relâmpago">Escolher Relâmpago</a>
+            <small class="fine">Sem contrato · entrada devolvida se não ficar como combinado</small>
           </div>
           <div class="spot plan featured reveal" style="--d:.1s">
             <span class="tag">MAIS ESCOLHIDO</span>
@@ -1540,6 +1598,7 @@
               <li>Landing page completa (várias seções)</li><li>Copy persuasiva focada em conversão</li><li>Captação de leads (lista de espera)</li><li>SEO e preview para redes sociais</li><li>1 rodada de ajustes</li><li>Entrega em 24h</li>
             </ul>
             <a class="btn btn-primary js-wa" href="#" data-plan="Validação">Escolher Validação</a>
+            <small class="fine">Sem contrato · entrada devolvida se não ficar como combinado</small>
           </div>
           <div class="spot plan reveal" style="--d:.2s">
             <h3>Lançamento</h3>
@@ -1549,8 +1608,11 @@
               <li>Tudo do pacote Validação</li><li>Domínio próprio configurado</li><li>Analytics e pixel de anúncios</li><li>Identidade visual simples</li><li>3 rodadas de ajustes</li><li>Suporte por 7 dias</li>
             </ul>
             <a class="btn btn-ghost js-wa" href="#" data-plan="Lançamento">Escolher Lançamento</a>
+            <small class="fine">Sem contrato · entrada devolvida se não ficar como combinado</small>
           </div>
         </div>
+
+        <p class="pay-note reveal"><svg class="ic" aria-hidden="true"><use href="#i-receipt"/></svg><span><b>50% para começar, 50% na entrega.</b> Pix ou cartão, combinado na conversa.</span></p>
 
         <div class="assure reveal">
           <div><b><svg class="ic" aria-hidden="true"><use href="#i-key"/></svg>A página é sua</b><span>Você recebe todos os arquivos. Sem contrato de permanência e sem ficar preso a plataforma.</span></div>
@@ -1559,6 +1621,43 @@
           <div><b><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Garantia da entrada</b><span>Se a página não ficar como combinamos, devolvo o valor da entrada.</span></div>
         </div>
         <p class="note">Valores e condições de exemplo, para fins didáticos. Taxas de domínio, quando aplicáveis, não estão inclusas.</p>
+      </div>
+    </section>
+
+    <div class="slant" style="--a:var(--bg);--b:var(--bg-2)" aria-hidden="true"></div>
+
+    <!-- ===== Fit ===== -->
+    <section id="para-quem">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Para quem é</span>
+          <h2>Feito para validar. <span class="grad">Não para tudo.</span></h2>
+          <p>Dizer o que está fora do escopo também faz parte de entregar em 24 horas.</p>
+        </div>
+        <div class="fit">
+          <div class="fit-col yes reveal">
+            <h3>É PraJá se você…</h3>
+            <ul>
+              <li>Tem uma ideia e quer saber se alguém compra</li>
+              <li>Precisa de uma página no ar ainda esta semana</li>
+              <li>Quer medir interesse antes de investir no produto</li>
+              <li>Prefere resolver tudo em uma única conversa</li>
+            </ul>
+          </div>
+          <div class="fit-col no reveal" style="--d:.1s">
+            <h3>Talvez não seja PraJá se você…</h3>
+            <ul>
+              <li>Precisa de um site institucional com muitas páginas</li>
+              <li>Quer uma loja virtual completa, com estoque e checkout</li>
+              <li>Precisa de um sistema com login e banco de dados</li>
+            </ul>
+            <p>Nesses casos, uma página PraJá ainda serve como primeiro teste antes do projeto maior.</p>
+          </div>
+        </div>
+        <div class="cta-strip reveal">
+          <div><strong>Ficou em dúvida se serve para o seu caso?</strong><span>Descreva a ideia no briefing e veja a prévia na hora.</span></div>
+          <a class="cta-link" href="#demo">Montar meu briefing <span class="arrow">→</span></a>
+        </div>
       </div>
     </section>
 
@@ -1590,8 +1689,9 @@
       <div class="container">
         <div class="cta-box reveal">
           <h2>Precisou? <span class="mark">É PraJá.</span></h2>
-          <p>Chame no WhatsApp, conte o que você quer testar e receba uma proposta na hora.</p>
+          <p>Chame no WhatsApp, conte o que você quer testar e receba uma proposta na hora. Fechando agora, a página fica no ar <b id="ctaEta">em 24 horas</b>.</p>
           <a class="btn btn-primary js-wa" href="#">Chamar no WhatsApp <span class="arrow">→</span></a>
+          <ul class="cta-chips"><li>Preço fechado</li><li>Sem mensalidade</li><li>Entrada devolvida se não ficar como combinado</li></ul>
           <span class="phone">(00) 00000-0000 · número fictício</span>
         </div>
       </div>
@@ -1630,7 +1730,7 @@
   <footer>
     <div class="container foot">
       <span>© <span id="year">2026</span> PraJá.studio · Protótipo fictício para fins didáticos.</span>
-      <span>Precisou? É PraJá. <svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg></span>
+      <nav class="foot-nav" aria-label="Rodapé"><a href="#processo">Como funciona</a><a href="#exemplos">Exemplos</a><a href="#demo">Briefing</a><a href="#pacotes">Pacotes</a><a href="#faq">Dúvidas</a></nav>
     </div>
   </footer>
 
@@ -1639,7 +1739,7 @@
     <a class="btn btn-primary js-wa" href="#">WhatsApp</a>
   </div>
 
-  <button type="button" class="to-top" id="toTop" aria-label="Voltar ao topo" hidden>
+  <button type="button" class="back-top" id="toTop" aria-label="Voltar ao topo" hidden>
     <svg class="ic" aria-hidden="true"><use href="#i-up"/></svg>
   </button>
 
@@ -2065,6 +2165,8 @@
         return { text: `${dayLabel(end, now)} às ${pad(end.getHours())}:00`, why: "Depois das 15h (ou no fim de semana), a contagem começa às 9h do próximo dia útil, horário de Brasília." };
       }
 
+      if (typeof window !== "undefined") window.etaBRT = eta;
+
       /* ---- prévia + mensagem (src diz o que mudou, para escolher a transição) ---- */
       function update(src) {
         const T = TYPES[st.type];
@@ -2220,6 +2322,13 @@
     })();
 
     /* ---------- Barra fixa de WhatsApp (celular): some quando já há outro botão de contato à vista ---------- */
+    /* ---------- Previsão de entrega no hero e no CTA final (mesma regra do briefing, horário de Brasília) ---------- */
+    (function etaLines() {
+      if (!window.etaBRT) return;
+      const t = window.etaBRT().text;
+      ["heroEta", "ctaEta"].forEach((id) => { const n = document.getElementById(id); if (n) n.textContent = t; });
+    })();
+
     (function sticky() {
       const bar = $("#stickyCta"), hero = $(".hero");
       const zones = [$("#demo"), $("#pacotes"), $(".cta-box")];

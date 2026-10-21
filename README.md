@@ -27,14 +27,15 @@ Tudo o que a página promete aparece nela de alguma forma: o selo "1 dia", o rel
 
 | Seção | O que faz |
 |---|---|
-| **Hero** | Promessa principal, mockup de navegador que começa pronto e de tempos em tempos "refaz" a página, e CTA para o WhatsApp |
+| **Hero** | Promessa principal, mockup de navegador que começa pronto e de tempos em tempos "refaz" a página, e CTA para o WhatsApp, mais a previsão de entrega calculada na hora (horário de Brasília) e uma faixa com os fatos da oferta |
 | **Comparação** | Agência × no-code sozinho × PraJá, em prazo, esforço, preço, copy e design e posse da página |
 | **Processo** | Como cabe tudo em um dia, horário de corte (15h) e linha do tempo guiada pelo scroll |
 | **Exemplos** | Galeria de quatro páginas fictícias (lista de espera, pré-venda, software e evento) com identidades visuais diferentes, que se montam peça por peça ao entrar na tela e podem ser ampliadas |
 | **Resultados** | Painel ilustrativo de teste de demanda e o que a pessoa leva depois da entrega |
 | **Briefing** | Duas formas de preencher: teste ao vivo (prévia, nota de clareza e comparação A/B) ou briefing escrito à mão, com pacote indicado e horário previsto de entrega |
-| **Pacotes e garantias** | Três pacotes de preço fechado e as garantias (código, hospedagem, custos e entrada) |
-| **FAQ e CTA final** | Objeções mais comuns e uma última chamada para o WhatsApp |
+| **Pacotes e garantias** | Três pacotes de preço fechado e as garantias (código, hospedagem, custos e entrada), com condição de pagamento e microcopy de garantia em cada pacote |
+| **Para quem é** | O que a PraJá resolve e o que fica fora do escopo, para qualificar antes do contato |
+| **FAQ e CTA final** | Objeções mais comuns, uma última chamada para o WhatsApp com previsão de entrega e navegação no rodapé |
 
 ## Destaques técnicos
 
