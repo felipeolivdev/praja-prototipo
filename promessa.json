@@ -1,0 +1,21 @@
+{
+  "_leia": "Fonte única da promessa. Edite aqui e rode: node scripts/promessa.mjs (depois --check). Não edite à mão os trechos marcados com promessa: em index.html, assets/og.html e README.md.",
+  "marca": "PraJá.studio",
+  "url": "https://praja-studio.vercel.app/",
+  "pergunta": "Quer um site para sua startup?",
+  "assinatura": "É PraJá.",
+  "tituloLinhas": ["Quer um site", "para sua startup?"],
+  "promessa": "Seu site no ar em 24 horas",
+  "prazo": "24 horas",
+  "seloComplemento": "Não em semanas.",
+  "apoio": "Para fundadores de startups que querem testar uma ideia: {destaque}, pronto para receber tráfego e leads. Precisa saber se alguém quer comprar? Comece hoje e valide amanhã.",
+  "destaque": "seu site no ar em 24 horas",
+  "rodapeCurto": "Para startups que testam ideias",
+  "ctaPergunta": "Quer testar sua ideia?",
+  "descricao": "Para fundadores de startups que querem testar uma ideia: seu site no ar em 24 horas, pronto para receber tráfego e leads. Protótipo fictício para fins didáticos.",
+  "ogDescricao": "Para fundadores de startups que querem testar uma ideia. Seu site no ar em 24 horas.",
+  "ogAlt": "PraJá.studio: site para startups testarem ideias. Seu site no ar em 24 horas.",
+  "readmeSubtitulo": "Landing page de um estúdio fictício que coloca o site de startups no ar em **24 horas**.",
+  "waAbertura": "Olá! Quero o site da minha startup em 24 horas.",
+  "proibidos": ["\\bem um dia\\b", "\\bUM DIA\\b", "\\bPronta em\\b", "pro seu negócio", "\\b1 dia\\b", "Quer uma página"]
+}

@@ -2,14 +2,16 @@
 
 # PraJá.studio
 
-**Quer uma página pro seu negócio? É PraJá.**
+<!-- promessa:topo -->
+**Quer um site para sua startup? É PraJá.**
 
-Landing page de um estúdio fictício que entrega páginas para startups em **um dia**.
+Landing page de um estúdio fictício que coloca o site de startups no ar em **24 horas**.
 Projeto de estudo feito com HTML, CSS e JavaScript puros, em um único arquivo.
 
-[**Ver demo ao vivo →**](https://praja-studio.vercel.app)
+[**Ver demo ao vivo →**](https://praja-studio.vercel.app/)
 
-![Prévia da página inicial da PraJá.studio](assets/preview.png)
+![Prévia da página inicial da PraJá.studio](assets/preview.png?v=c3221501)
+<!-- /promessa:topo -->
 
 </div>
 
@@ -21,7 +23,7 @@ Projeto de estudo feito com HTML, CSS e JavaScript puros, em um único arquivo.
 
 A ideia era criar uma landing page que **vende velocidade** para startups que precisam validar ideias rapidamente, e que mostra domínio de front-end no próprio processo: identidade visual própria, interações com propósito, acessibilidade e desempenho, sem frameworks e sem etapa de build.
 
-Tudo o que a página promete aparece nela de alguma forma: o selo "1 dia", o relógio no mockup, o horário de corte calculado em tempo real e o briefing que monta a mensagem pronta para o WhatsApp.
+Tudo o que a página promete aparece nela de alguma forma: o selo "24 horas", o relógio no mockup, o horário de corte calculado em tempo real e o briefing que monta a mensagem pronta para o WhatsApp.
 
 ## O que tem na página
 
@@ -30,7 +32,7 @@ Tudo o que a página promete aparece nela de alguma forma: o selo "1 dia", o rel
 | **Hero** | Promessa principal e CTA. O texto se forma como um site conforme a rolagem: contornos viram letras cheias, o botão se preenche e o mockup de navegador monta nav, título, botão e cards até chegar a "No ar" |
 | **Para quem é** | Quem é o público (fundadores de startups que querem testar uma ideia) e o que fica fora do escopo |
 | **Comparação** | Agência × no-code sozinho × PraJá, em prazo, esforço, preço, copy e design e posse da página |
-| **Processo** | Como cabe tudo em um dia, horário de corte (15h) e linha do tempo guiada pelo scroll |
+| **Processo** | Como cabe tudo em 24 horas, horário de corte (15h) e linha do tempo guiada pelo scroll |
 | **Exemplos** | Galeria de quatro páginas fictícias (lista de espera, pré-venda, software e evento) com identidades visuais diferentes, que se montam peça por peça conforme a rolagem e podem ser ampliadas |
 | **Resultados** | Painel ilustrativo de teste de demanda e o que a pessoa leva depois da entrega |
 | **Pacotes e garantias** | Três pacotes de preço fechado e as garantias (código, hospedagem, custos e entrada) |
@@ -79,6 +81,11 @@ A galeria é de propósito um contraponto: cada exemplo (Grana, Torra, Fluxo e S
 ```
 .
 ├── index.html        # Página completa (HTML + CSS + JS inline)
+├── promessa.json     # Fonte única da promessa (título, descrições, selo, mensagem do WhatsApp)
+├── scripts/
+│   └── promessa.mjs  # Propaga a promessa, recaptura as imagens e confere (--check)
+├── .githooks/
+│   └── pre-commit    # Roda o --check antes de cada commit (opcional)
 ├── assets/
 │   ├── og.html       # Fonte da imagem de compartilhamento
 │   ├── og.png        # Imagem social (1200x630) das metatags Open Graph
@@ -103,11 +110,24 @@ npx serve .
 |---|---|
 | Número do WhatsApp | constante `WHATSAPP_NUMBER` no final do `index.html` (DDI + DDD + número, só dígitos). Enquanto o número for só zeros (fictício), os botões abrem uma janela mostrando a mensagem que seria enviada; com um número real, abrem o WhatsApp direto |
 | Telefone exibido | `.phone`, na seção final |
-| Nome e logotipo | `<title>`, metatags, SVG do logotipo no header e `assets/og.html` |
+| Promessa (título, descrição, selo, imagem de prévia, README) | `promessa.json` e depois `node scripts/promessa.mjs` (veja abaixo) |
+| Nome e logotipo | `promessa.json` (marca), SVG do logotipo no header e em `assets/og.html` |
 | Cores | variáveis CSS em `:root`, no início do `<style>` |
 | Preços e pacotes | seção `#pacotes` |
 | Horário de corte | função `eta()` no script do briefing, o texto do card de corte e o FAQ |
-| Imagem de compartilhamento | edite `assets/og.html` e capture a tela em 1200x630 |
+| Imagem de compartilhamento | o visual em `assets/og.html`; o texto vem do `promessa.json` e a captura é feita pelo script |
+
+### Mudando a promessa
+
+A promessa aparece no título da aba, na descrição do Google, nas metatags das redes, na imagem de compartilhamento, no hero, na barra do celular, no CTA final, no rodapé, na mensagem do WhatsApp e neste README. Para não ficar um lugar prometendo a versão antiga, ela vive só no `promessa.json`:
+
+1. Edite o `promessa.json`.
+2. Rode `node scripts/promessa.mjs` (Node 18+, sem dependências). Ele reescreve os trechos marcados com `promessa:` no `index.html`, no `assets/og.html` e neste README, recaptura `assets/og.png` e `assets/preview.png` com Chrome ou Edge sem janela (`BROWSER=` aponta outro navegador) e troca o `?v=` das imagens, para a Vercel e as redes buscarem a versão nova.
+3. Rode `node scripts/promessa.mjs --check`. Ele falha se algum trecho marcado divergir, se uma imagem estiver desatualizada ou se sobrar texto da promessa antiga (lista `proibidos`).
+4. Faça o commit e o push. Para o `--check` rodar sozinho antes de cada commit: `git config core.hooksPath .githooks`.
+5. Depois do deploy, peça uma nova leitura do link no [Sharing Debugger do Facebook](https://developers.facebook.com/tools/debug/) e no [Post Inspector do LinkedIn](https://www.linkedin.com/post-inspector/). O WhatsApp atualiza a prévia quando volta a ler a página.
+
+Não edite à mão o que estiver entre `<!-- promessa:… -->` e `<!-- /promessa:… -->`: o script sobrescreve.
 
 ## Deploy
 

@@ -1,0 +1,4 @@
+#!/bin/sh
+# Bloqueia o commit se a promessa estiver diferente do promessa.json em algum lugar.
+# Ativar neste clone: git config core.hooksPath .githooks
+node scripts/promessa.mjs --check

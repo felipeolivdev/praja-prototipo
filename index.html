@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- promessa:head -->
   <title>PraJá.studio — Quer um site para sua startup? É PraJá.</title>
   <meta name="description" content="Para fundadores de startups que querem testar uma ideia: seu site no ar em 24 horas, pronto para receber tráfego e leads. Protótipo fictício para fins didáticos." />
   <meta property="og:title" content="PraJá.studio — Quer um site para sua startup? É PraJá." />
@@ -11,10 +12,11 @@
   <meta property="og:site_name" content="PraJá.studio" />
   <meta property="og:locale" content="pt_BR" />
   <meta property="og:url" content="https://praja-studio.vercel.app/" />
-  <meta property="og:image" content="https://praja-studio.vercel.app/assets/og.png" />
+  <meta property="og:image" content="https://praja-studio.vercel.app/assets/og.png?v=3ea0e4a4" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="PraJá.studio: site para startups testarem ideias. Seu site no ar em 24 horas." />
+  <!-- /promessa:head -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="color-scheme" content="dark" />
   <meta name="format-detection" content="telephone=no" />
@@ -1160,6 +1162,7 @@
       <div class="hero-grid" aria-hidden="true"></div>
       <div class="container hero-inner">
         <div>
+          <!-- promessa:hero -->
           <span class="oneday"><span class="dot"></span> <b>Seu site no ar em 24 horas.</b> Não em semanas.</span>
           <h1>
             <span class="line"><span>Quer um site</span></span>
@@ -1170,6 +1173,7 @@
             </span></span>
           </h1>
           <p class="lead">Para fundadores de startups que querem testar uma ideia: <span class="hl">seu site no ar em 24 horas</span>, pronto para receber tráfego e leads. Precisa saber se alguém quer comprar? Comece hoje e valide amanhã.</p>
+          <!-- /promessa:hero -->
           <div class="hero-cta">
             <a class="btn btn-primary js-wa" href="#">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.9 11.9 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6A12 12 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.5ZM12 22a10 10 0 0 1-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A10 10 0 1 1 12 22Zm5.5-7.5c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1l-1 1.2c-.2.2-.4.2-.7.1a8 8 0 0 1-4-3.5c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 1.9.8 2.6.9 3.6.7.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3Z"/></svg>
@@ -1771,7 +1775,7 @@
     <section>
       <div class="container">
         <div class="cta-box reveal">
-          <h2>Quer testar sua ideia? <span class="mark">É PraJá.</span></h2>
+          <!-- promessa:cta --><h2>Quer testar sua ideia? <span class="mark">É PraJá.</span></h2><!-- /promessa:cta -->
           <p>Chame no WhatsApp, conte o que quer testar e receba uma proposta na hora.</p>
           <a class="btn btn-primary js-wa" href="#">Chamar no WhatsApp <span class="arrow">→</span></a>
           <span class="phone">(00) 00000-0000 · número fictício</span>
@@ -1812,14 +1816,14 @@
   <footer>
     <div class="container foot">
       <span>© <span id="year">2026</span> PraJá.studio · Protótipo fictício para fins didáticos.</span>
-      <span>Quer testar sua ideia? É PraJá. <svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg></span>
+      <!-- promessa:rodape --><span>Quer testar sua ideia? É PraJá. <svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg></span><!-- /promessa:rodape -->
     </div>
   </footer>
 
   <div class="build-hud" id="hud" aria-hidden="true"><span id="hudLabel">Montando</span><i><u></u></i><b id="hudPct">0%</b></div>
 
   <div class="sticky-cta" id="stickyCta">
-    <span><b>Seu site no ar em 24 horas</b><small>Para startups que testam ideias</small></span>
+    <!-- promessa:sticky --><span><b>Seu site no ar em 24 horas</b><small>Para startups que testam ideias</small></span><!-- /promessa:sticky -->
     <a class="btn btn-primary js-wa" href="#">WhatsApp</a>
   </div>
 
@@ -1831,6 +1835,7 @@
   <script>
     // Número fictício: troque por um real, apenas dígitos com DDI + DDD (ex.: 5511912345678).
     const WHATSAPP_NUMBER = "00000000000";
+    /* promessa:js */ const PROMESSA = {"waAbertura":"Olá! Quero o site da minha startup em 24 horas.","promessa":"Seu site no ar em 24 horas","prazo":"24 horas"}; /* /promessa:js */
 
     const $ = (s, el = document) => el.querySelector(s);
     const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -1841,7 +1846,7 @@
     function waLink(text) { return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`; }
     $$(".js-wa").forEach((el) => {
       const plan = el.dataset.plan;
-      el.href = waLink(plan ? `Olá! Quero o pacote ${plan} para a página da minha startup.` : "Olá! Quero a página do meu negócio. É PraJá?");
+      el.href = waLink(plan ? `Olá! Quero o pacote ${plan} para a página da minha startup.` : PROMESSA.waAbertura);
       el.target = "_blank"; el.rel = "noopener";
     });
     $("#year").textContent = new Date().getFullYear();
@@ -2455,7 +2460,7 @@
 
         const clean = (t) => t.replace(/[.!?]+$/, "");
         const lines = [
-          "Olá! Quero a página da minha startup em um dia.",
+          PROMESSA.waAbertura,
           `Formato: ${T.label}.`,
           `Nome: ${name || "(a definir)"}.`,
           `Ideia${tagB ? " A" : ""}: ${tagA ? clean(tagA) : "(a definir)"}.`
@@ -2534,7 +2539,7 @@
       function updateWrite() {
         const t = wrText.value.trim(), ok = t.length >= 20;
         wrCount.textContent = `${wrText.value.length}/1200`;
-        const text = t ? `Olá! Quero a página da minha startup em um dia. Segue o meu briefing:\n\n${t}` : "Escreva o briefing ao lado e a mensagem aparece aqui.";
+        const text = t ? `${PROMESSA.waAbertura} Segue o meu briefing:\n\n${t}` : "Escreva o briefing ao lado e a mensagem aparece aqui.";
         wrMsg.textContent = text;
         wrMsg.classList.toggle("is-empty", !t);
         wrCta.setAttribute("aria-disabled", String(!ok));
