@@ -49,7 +49,11 @@ function save(rel) {
 /* ---------- imagens: versão curta para furar cache (Vercel e redes sociais) ----------
    A versão junta o promessa.json com a imagem (e, na og, com o og.html). Se a promessa mudar e a imagem
    não for recapturada (--no-images), a versão gravada deixa de bater e o --check acusa. */
-const bytes = (rel) => existsSync(join(ROOT, rel)) ? readFileSync(join(ROOT, rel)) : Buffer.alloc(0);
+const bytes = (rel) => {
+  if (!existsSync(join(ROOT, rel))) return Buffer.alloc(0);
+  const b = readFileSync(join(ROOT, rel));
+  return /\.(json|html|md)$/.test(rel) ? Buffer.from(b.toString("utf8").replace(/\r\n/g, "\n")) : b;   // CRLF/LF não muda a versão
+};
 const version = (...rels) => { const h = createHash("sha1"); rels.forEach((r) => h.update(bytes(r))); return h.digest("hex").slice(0, 8); };
 const ogVersion = () => version("promessa.json", "assets/og.html", "assets/og.png");
 const prevVersion = () => version("promessa.json", "assets/preview.png");
