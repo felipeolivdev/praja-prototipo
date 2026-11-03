@@ -10,7 +10,7 @@ Projeto de estudo feito com HTML, CSS e JavaScript puros, em um único arquivo.
 
 [**Ver demo ao vivo →**](https://praja-studio.vercel.app/)
 
-![Prévia da página inicial da PraJá.studio](assets/preview.png?v=c3221501)
+![Prévia da página inicial da PraJá.studio](assets/preview.png?v=26db3a0b)
 <!-- /promessa:topo -->
 
 </div>
@@ -64,15 +64,15 @@ Tudo o que a página promete aparece nela de alguma forma: o selo "24 horas", o 
 
 ## Identidade visual
 
-O conceito é **velocidade elétrica**: tudo na página deriva do raio do logotipo.
+O conceito é **velocidade elétrica** sobre papel: tudo na página deriva do raio do logotipo, em tinta e amarelo sobre fundo claro.
 
 | Elemento | Decisão |
 |---|---|
-| **Cores** | Fundo escuro (`#0a0a0d`), texto creme (`#f6f4ec`) e **amarelo-raio** (`#ffd60a`) usado só como destaque |
+| **Cores** | Fundo papel (`#F7F5EF`), texto em tinta (`#15161A`, apoio `#5E5D58`), linhas `#E3DFD4` e **amarelo-raio** (`#F5C518`) só como fundo de grifo e no raio do logotipo, nunca como cor de texto. Botões principais em tinta com texto claro |
 | **Formas** | Paralelogramos inclinados em botões, grifos, selo e marcadores, na mesma inclinação do raio |
 | **Ícones** | Conjunto próprio de ícones de traço (SVG), com o mesmo desenho |
-| **Tipografia** | **Bricolage Grotesque** nos títulos, **Geist** no texto e **Geist Mono** nos detalhes técnicos |
-| **Detalhes** | Filete amarelo no topo dos blocos-chave, uma linha reta entre as seções, grade de quadrados no fundo ancorada no layout (as bordas do container caem em linhas da grade e a altura de cada seção é ajustada a um múltiplo do quadrado, então as divisórias nunca ficam fora de esquadro; um brilho desce junto com a página), esboço em grade que dá lugar a cada bloco e movimento sempre ligado à rolagem, com amortecimento curto para não dar saltos |
+| **Tipografia** | **Schibsted Grotesk** nos títulos, **IBM Plex Sans** no texto e **IBM Plex Mono** nos detalhes técnicos |
+| **Detalhes** | Filete amarelo no topo dos blocos-chave, uma linha reta entre as seções, grade de quadrados bem discreta no fundo, ancorada no layout (as bordas do container caem em linhas da grade e a altura de cada seção é ajustada a um múltiplo do quadrado, então as divisórias nunca ficam fora de esquadro), superfícies planas com linhas finas, sem brilhos, vidro nem sombras, esboço em grade que dá lugar a cada bloco e movimento sempre ligado à rolagem, com amortecimento curto para não dar saltos |
 
 A galeria é de propósito um contraponto: cada exemplo (Grana, Torra, Fluxo e Sprint Zero) tem cores, fontes e layout próprios, para mostrar que dá para fazer qualquer coisa.
 
