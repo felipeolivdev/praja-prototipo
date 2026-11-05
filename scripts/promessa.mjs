@@ -85,7 +85,7 @@ function capture(browser, pageRel, outRel, w, h, extra = []) {
 
 /* ---------- blocos gerados ---------- */
 function blocks(ogV, prevV) {
-  const [l1, l2] = P.tituloLinhas;
+  const linhas = P.tituloLinhas;
   const apoio = esc(P.apoio).replace("{destaque}", `<span class="hl">${esc(P.destaque)}</span>`);
   return {
     "index.html": {
@@ -106,8 +106,7 @@ function blocks(ogV, prevV) {
       hero: `
           <span class="oneday"><span class="dot"></span> <b>${esc(P.promessa)}.</b> ${esc(P.seloComplemento)}</span>
           <h1>
-            <span class="line"><span>${esc(l1)}</span></span>
-            <span class="line"><span>${esc(l2)}</span></span>
+            ${linhas.map((l) => `<span class="line"><span>${esc(l)}</span></span>`).join("\n            ")}
             <span class="line"><span>
               <span class="underline mark">${esc(P.assinatura)}
               </span>
@@ -122,7 +121,7 @@ function blocks(ogV, prevV) {
     },
     "assets/og.html": {
       chip: `<div class="chip"><i></i>${esc(P.promessa)}</div>`,
-      titulo: `<h1>${esc(l1)}<br>${esc(l2)}<br><span class="mark">${esc(P.assinatura)}</span></h1>`,
+      titulo: `<h1>${linhas.map(esc).join("<br>")}<br><span class="mark">${esc(P.assinatura)}</span></h1>`,
       rodape: `<div class="foot"><b>»</b> ${esc(P.rodapeCurto)} &nbsp; <b>»</b> Protótipo fictício</div>`
     },
     "README.md": {

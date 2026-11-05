@@ -3,14 +3,14 @@
 # PraJá.studio
 
 <!-- promessa:topo -->
-**Quer um site para sua startup? É PraJá.**
+**Tem uma ideia e medo de gastar meses à toa? É PraJá.**
 
 Landing page de um estúdio fictício que coloca o site de startups no ar em **24 horas**.
 Projeto de estudo feito com HTML, CSS e JavaScript puros, em um único arquivo.
 
 [**Ver demo ao vivo →**](https://praja-studio.vercel.app/)
 
-![Prévia da página inicial da PraJá.studio](assets/preview.png?v=26db3a0b)
+![Prévia da página inicial da PraJá.studio](assets/preview.png?v=d00d3c7e)
 <!-- /promessa:topo -->
 
 </div>
