@@ -26,11 +26,13 @@ Por isso a página precisa parecer **segura e direta**: um caminho claro, uma a�
 
 **Amarelo é a promessa.** Ele aparece só em três lugares:
 
-1. No raio do logo.
+1. No quadrado do logo, atrás do raio em tinta.
 2. Em um grifo por tela, atrás do texto, com texto em tinta por cima.
-3. No selo "24 horas" da primeira dobra.
+3. No selo "24 horas" do hero.
 
-Na primeira dobra, o selo já diz o prazo, então o único grifo é "É PraJá.". O texto de apoio fica sem grifo.
+No hero, o selo já diz o prazo, então o único grifo é "É PraJá.". O texto de apoio fica sem grifo.
+
+A partir de 981px, o selo fica na primeira dobra. Abaixo disso, ele vem logo acima da maquete e pode ficar abaixo da dobra, porque a frase "Seu site no ar em 24 horas" já dá o prazo no topo.
 
 ### Espaçamento
 
@@ -45,6 +47,8 @@ Use somente 8, 16, 24, 40 e 80px.
 | 80px | Padding vertical de seção (40px em telas abaixo de 768px) |
 
 Regra: o espaço entre grupos é sempre maior que o espaço dentro do grupo. Agrupe com espaço antes de usar linha ou caixa. Na dúvida, suba um degrau.
+
+Exceção: o topo do hero soma a altura do menu fixo (90px) ao degrau da seção, porque o menu cobre o início da página. Dá 170px, ou 130px abaixo de 768px. No CSS, escreva a soma, não o resultado.
 
 ### Forma
 
@@ -70,11 +74,13 @@ Seis tamanhos, com degraus grandes para a hierarquia ser visível de relance:
 | 72px | Schibsted 800 | Só o H1 da primeira dobra | 52px | 40px |
 | 52px | Schibsted 800 | Título de seção (H2) | 32px | 32px |
 | 32px | Schibsted 800 | Título de card, preço, número do selo | 32px | 32px |
-| 20px | Plex Sans 400 | Texto de apoio e subtítulo | 20px | 20px |
+| 20px | Plex Sans 400/700 | Texto de apoio e subtítulo; 700 só em ênfase | 20px | 20px |
 | 16px | Plex Sans 400/700 | Corpo, menu, botões | 16px | 16px |
 | 13px | Plex Sans 500 | Rótulos, legendas, rodapé | 13px | 13px |
 
-O 40px existe só no H1 do celular: é o maior valor em que "Tem uma ideia e" cabe em uma linha numa tela de 360px.
+O 40px existe só no H1 do celular. Em tela de 360px, "Tem uma ideia e" cabe em uma linha com 9px de folga, e o limite calculado é 41px.
+
+O logo é Schibsted 800 em 20px, em qualquer largura. Ele é marca, não texto, e por isso fica fora da tabela.
 
 Altura de linha: 1 nos títulos e 1.6 no texto. Espaçamento entre letras: −0.025em nos títulos e 0 no resto.
 
@@ -91,8 +97,8 @@ Regras:
 - Não use dois grifos na mesma tela.
 - Não use a IBM Plex Mono em lugar nenhum da página.
 - Não use tamanho quebrado (14,4px, 14,72px, 16,32px) nem `clamp()` que gere tamanho fora da tabela.
-- Não crie espaçamento fora de 8, 16, 24, 40 e 80px.
-- Não use sombra, brilho, vidro com blur, gradiente ou neon.
+- Não crie espaçamento fora de 8, 16, 24, 40 e 80px, salvo a exceção do topo do hero.
+- Não use sombra, brilho, vidro com blur, gradiente ou neon. A grade do fundo é a única exceção: são linhas retas de 1px, feitas com `linear-gradient`, sem transição de cor visível.
 - Não acrescente elemento fixo na primeira dobra que não ajude a decidir, como o indicador "LEITURA 0%".
 - Não use palavras vagas neste arquivo. "Espaçamento generoso" não é decisão: escreva o número.
 
