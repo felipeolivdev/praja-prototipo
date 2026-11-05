@@ -22,6 +22,12 @@
   <meta name="format-detection" content="telephone=no" />
   <link rel="canonical" href="https://praja-studio.vercel.app/" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <script>
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window) {
+      document.documentElement.classList.add("rv");
+      setTimeout(function () { if (!window.__rvOk) document.documentElement.classList.remove("rv"); }, 3000);
+    }
+  </script>
   <noscript><style>.reveal, .hero .lead, .hero-cta, .hero-trust, .stage { opacity: 1 !important; transform: none !important; } .hero h1 .line span { transform: none !important; } .dash .bars i { height: calc(var(--h) * 100%) !important; } .dash .bars i b, .dash .ok { opacity: 1 !important; } .dash .ok { transform: skewX(var(--skew)) !important; } .dash .goal-bar i { width: 100% !important; }</style></noscript>
   <meta name="theme-color" content="#F7F5EF" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='11' fill='%23f5c518'/><path d='M23 6 12 22h7l-2 12 11-16h-7z' fill='%2315161a'/></svg>" />
@@ -653,31 +659,30 @@
     /* =========================================================
        14. REVEAL
        ========================================================= */
-/* A página se constrói conforme a rolagem. O JS entrega --p (0 a 1) a cada bloco e --hp ao hero;
-       o CSS decide o que aparece em cada faixa. Sem JS, --p e --hp valem 1 e tudo aparece pronto.
-       .bc é o esboço (grade azul-projeto): a linha se desenha (0 a .3), some revelando o bloco (.3 a .6)
-       e o conteúdo entra item por item (.5 a 1). */
-    .reveal { --p: 1; --l: clamp(0, calc(var(--p) * 3.4), 1); --f: clamp(0, calc((var(--p) - .3) * 3.4), 1); position: relative; }
-    .reveal > *:not(.bc) { --o: clamp(0, calc((var(--p) - .5 - var(--i, 0) * .045) * 5), 1); opacity: var(--o); transform: translateY(calc((1 - var(--o)) * 18px)); }
-    .reveal.done > *:not(.bc) { opacity: 1; transform: none; }
-    .reveal.done > .bc { display: none; }
-    .section-head.reveal > h2 { opacity: 1; transform: none; }
-    .ex.reveal > .ex-frame { opacity: 1; transform: none; }
-    .bc { position: absolute; inset: 0; z-index: 6; pointer-events: none; border-radius: inherit;
-      border: 1.5px dashed rgba(21, 22, 26, .35);
-      background: linear-gradient(rgba(21, 22, 26, .06) 1px, transparent 1px) 0 0 / 24px 24px, linear-gradient(90deg, rgba(21, 22, 26, .06) 1px, transparent 1px) 0 0 / 24px 24px, var(--bg);
-      opacity: calc(1 - var(--f)); clip-path: inset(0 calc((1 - var(--l)) * 100%) 0 0); }
-    .bc::before, .bc::after { content: ""; position: absolute; width: 14px; height: 14px; border: 2px solid var(--fg); }
-    .bc::before { left: 0; top: 0; border-right: 0; border-bottom: 0; }
-    .bc::after { right: 0; bottom: 0; border-left: 0; border-top: 0; }
-    .sw { display: inline-block; --o: clamp(0, calc((var(--p) * 1.7 - var(--wk, 0) * .9) * 5), 1); opacity: var(--o); transform: translateY(calc((1 - var(--o)) * .45em)); filter: blur(calc((1 - var(--o)) * 5px)); }
-    .reveal.done .sw { opacity: 1; transform: none; filter: none; }
-    .reveal.done { clip-path: none; }
+/* Cada bloco aparece uma vez, quando chega à tela, com uma animação curta por tempo (nada depende da rolagem).
+       O JS marca o bloco com .in; o CSS anima os filhos em sequência. Só a galeria e o painel usam --p (0 a 1),
+       que o JS leva de 0 a 1 por tempo. Sem JS ou com movimento reduzido a classe html.rv não existe e tudo aparece pronto. */
+    .reveal { --p: 1; position: relative; }
+    @keyframes rv-in { from { opacity: 0; transform: translateY(18px); } }
+    @keyframes rv-word { from { opacity: 0; transform: translateY(.4em); } }
+    html.rv .reveal:not(.in) > * { opacity: 0; }
+    html.rv .reveal.in > * { animation: rv-in .55s var(--snap) backwards; animation-delay: calc(var(--d, 0s) + min(var(--i, 0), 6) * 60ms); }
+    /* caixas visíveis entram junto com o conteúdo: nunca aparece uma caixa vazia esperando */
+    html.rv .reveal:is(.spot, .cta-strip, .cta-box, .assure):not(.in) { opacity: 0; }
+    html.rv .reveal:is(.spot, .cta-strip, .cta-box, .assure).in { animation: rv-in .5s var(--snap) backwards; animation-delay: var(--d, 0s); }
+    html.rv .section-head.reveal:not(.in) > h2 { opacity: 1; }
+    html.rv .section-head.reveal.in > h2 { animation: none; }
+    html.rv .ex.reveal:not(.in) > .ex-frame { opacity: 1; }
+    html.rv .ex.reveal.in > .ex-frame { animation: none; }
+    .sw { display: inline-block; }
+    html.rv .reveal:not(.in) .sw { opacity: 0; transform: translateY(.4em); }
+    html.rv .reveal.in .sw { animation: rv-word .6s var(--snap) backwards; animation-delay: calc(var(--wk, 0) * 260ms); }
     .brief-side.reveal { position: relative; }
     @media (min-width: 981px) and (min-height: 780px) { .brief-side.reveal { position: sticky; top: 92px; } }
 
-    /* ---- hero: o texto vira um site conforme a rolagem ---- */
+    /* ---- hero: o texto vira um site ao carregar a página (--hp vai de 0 a 1 por tempo) ---- */
     .hero { --hp: 1; }
+    html.rv .hero { --hp: 0; }
     .hero h1 .line span { --f: clamp(0, calc((var(--hp) - var(--d0, 0)) * 4), 1); color: transparent; -webkit-text-stroke: 1.25px color-mix(in srgb, var(--fg) calc((1 - var(--f)) * 65%), transparent);
       background: linear-gradient(90deg, var(--fg) calc(var(--f) * 104% - 4%), transparent calc(var(--f) * 104%)); -webkit-background-clip: text; background-clip: text; }
     .hero h1 .line:nth-child(2) span { --d0: .08; }
@@ -701,13 +706,7 @@
       background: linear-gradient(rgba(21, 22, 26, .06) 1px, transparent 1px) 0 0 / 22px 22px, linear-gradient(90deg, rgba(21, 22, 26, .06) 1px, transparent 1px) 0 0 / 22px 22px; }
     .stamp { opacity: clamp(0, calc((var(--hp) - .7) * 5), 1); }
     .hero::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: calc(1 - var(--hp)); background: none; }
-    .hero-hint { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 2; font: 500 .72rem var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--fg); white-space: nowrap; opacity: calc(1 - var(--hp) * 4); pointer-events: none; }
     .hero-inner { position: relative; }
-    @media (min-width: 981px) and (min-height: 700px) {
-      .hero.pin { padding: 0; overflow: visible; overflow-x: clip; }
-      .hero.pin .hero-inner { position: sticky; top: max(0px, calc((100vh - var(--hh, 100vh)) / 2)); padding: 104px 0 36px; align-items: center; }
-      .hero.pin + section { padding-top: 40px; }
-    }
 
     /* ---- fundo: grade de quadrados ancorada no layout ----
        O JS define --cell (largura do container / nº de colunas, então os quadrados são quadrados) e --gx (borda esquerda do container),
@@ -719,19 +718,7 @@
         linear-gradient(90deg, rgba(21, 22, 26, .045) 1px, transparent 1px) var(--gx, 0) 0 / calc(var(--cell, 56px) * 4) calc(var(--cell, 56px) * 4),
         linear-gradient(rgba(21, 22, 26, .025) 1px, transparent 1px) var(--gx, 0) 0 / var(--cell, 56px) var(--cell, 56px),
         linear-gradient(90deg, rgba(21, 22, 26, .025) 1px, transparent 1px) var(--gx, 0) 0 / var(--cell, 56px) var(--cell, 56px); }
-    /* Enquanto o hero está fixo, a grade dele é uma camada sticky (nativa, sem JS): fica COMPLETAMENTE parada na tela e,
-       quando o hero solta, rola junto com a página no mesmo encaixe da grade do fundo (altura da camada = múltiplo da célula). */
     .hero-grid { display: none; }
-    @media (min-width: 981px) and (min-height: 700px) {
-      .hero.pin .hero-grid { display: block; position: sticky; top: 0; height: var(--lh, 100vh); margin-bottom: calc(var(--lh, 100vh) * -1); z-index: 0; pointer-events: none;
-        background:
-          linear-gradient(rgba(21, 22, 26, .045) 1px, transparent 1px) var(--gx, 0) 0 / calc(var(--cell, 56px) * 4) calc(var(--cell, 56px) * 4),
-          linear-gradient(90deg, rgba(21, 22, 26, .045) 1px, transparent 1px) var(--gx, 0) 0 / calc(var(--cell, 56px) * 4) calc(var(--cell, 56px) * 4),
-          linear-gradient(rgba(21, 22, 26, .025) 1px, transparent 1px) var(--gx, 0) 0 / var(--cell, 56px) var(--cell, 56px),
-          linear-gradient(90deg, rgba(21, 22, 26, .025) 1px, transparent 1px) var(--gx, 0) 0 / var(--cell, 56px) var(--cell, 56px),
-          var(--bg); }
-      .hero.pin .hero-inner { z-index: 1; }
-    }
 
     /* ---- contador de montagem da página ---- */
     .build-hud { position: fixed; left: 20px; bottom: 20px; z-index: 41; display: flex; align-items: center; gap: 12px; padding: 9px 14px; border: 1.5px solid var(--line-strong); border-radius: 10px; background: rgba(247, 245, 239, .94); font: 500 .7rem var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); pointer-events: none; }
@@ -739,7 +726,7 @@
     .build-hud i { width: 74px; height: 4px; border-radius: 4px; background: var(--line); overflow: hidden; }
     .build-hud u { display: block; height: 100%; width: calc(var(--pg, 0) * 100%); background: var(--zap); text-decoration: none; }
     .build-hud.on b, .build-hud.on { color: var(--fg); }
-    @media (max-width: 980px) { .build-hud { display: none; } .hero-hint { bottom: 8px; } }
+    @media (max-width: 980px) { .build-hud { display: none; } }
 
     /* =========================================================
        15. RESPONSIVO + MOVIMENTO REDUZIDO
@@ -791,7 +778,7 @@
       html { scroll-behavior: auto; }
       *, *::before, *::after { animation-duration: .001s !important; animation-iteration-count: 1 !important; transition-duration: .001s !important; }
       .reveal > * { opacity: 1 !important; transform: none !important; }
-      .bc, .build-hud, .hero-hint { display: none !important; }
+      .build-hud { display: none !important; }
       .sw, [data-bk] { opacity: 1 !important; transform: none !important; filter: none !important; translate: none !important; }
     }
 
@@ -1182,7 +1169,6 @@
           </div>
           <div class="stamp" aria-hidden="true"><small>NO AR EM</small><strong>24</strong><span>HORAS</span></div>
         </div>
-        <div class="hero-hint" aria-hidden="true">Role para montar a página ↓</div>
       </div>
     </section>
 
@@ -1790,7 +1776,7 @@
     </div>
   </footer>
 
-  <div class="build-hud" id="hud" aria-hidden="true"><span id="hudLabel">Montando</span><i><u></u></i><b id="hudPct">0%</b></div>
+  <div class="build-hud" id="hud" aria-hidden="true"><span id="hudLabel">Leitura</span><i><u></u></i><b id="hudPct">0%</b></div>
 
   <div class="sticky-cta" id="stickyCta">
     <!-- promessa:sticky --><span><b>Seu site no ar em 24 horas</b><small>Para quem quer testar uma ideia</small></span><!-- /promessa:sticky -->
@@ -1827,9 +1813,8 @@
     function hudUpdate(pg) {
       const pct = Math.round(Math.max(0, Math.min(1, pg)) * 100);
       hud.style.setProperty("--pg", pg.toFixed(3));
-      document.documentElement.style.setProperty("--pg", pg.toFixed(3));
       hudPct.textContent = pct + "%";
-      hudLabel.textContent = pct >= 99 ? "No ar" : "Montando";
+      hudLabel.textContent = pct >= 99 ? "Fim" : "Leitura";
       hud.classList.toggle("on", pct >= 99);
     }
     function onScroll() {
@@ -1838,10 +1823,14 @@
       header.classList.toggle("scrolled", scrollY > 24);
       updateTimeline();
       backToTop(max);
-      heroUpdate();
       hudUpdate(max > 0 ? scrollY / max : 0);
     }
-    addEventListener("scroll", onScroll, { passive: true });
+    let scrollQueued = false;   // um trabalho por quadro, não um por evento de rolagem
+    addEventListener("scroll", () => {
+      if (scrollQueued) return;
+      scrollQueued = true;
+      requestAnimationFrame(() => { scrollQueued = false; onScroll(); });
+    }, { passive: true });
 
     /* ---------- Voltar ao topo: aparece quando a pessoa chega ao fim da página e some ao voltar ao início ---------- */
     const toTop = $("#toTop");
@@ -1860,9 +1849,9 @@
       scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
     });
 
-    /* ---------- A página se constrói conforme a rolagem ----------
-       Um só mecanismo, sem temporizador: a posição de cada bloco vira um progresso --p (0 a 1).
-       O JS cria o esboço (.bc), separa as palavras dos títulos e numera os filhos; o CSS faz o resto. */
+    /* ---------- A página aparece por blocos ----------
+       Cada bloco entra uma vez, quando chega à tela: o JS marca .in e o CSS anima os filhos em sequência.
+       Nada depende da posição da rolagem, então o conteúdo nunca fica parado pela metade. */
     const buildEls = $$(".reveal");
     function splitWords(root, cls) {
       const words = [];
@@ -1882,65 +1871,41 @@
       })(root);
       return words;
     }
-    if (!reduced) buildEls.forEach((el) => {
-      [...el.children].forEach((c, i) => c.style.setProperty("--i", i));
-      if (el.classList.contains("section-head")) {
-        const h = $("h2", el);
-        if (h) { const ws = splitWords(h, "sw"); ws.forEach((w, i) => w.style.setProperty("--wk", (i / Math.max(1, ws.length - 1)).toFixed(3))); }
-      } else {
-        const bc = document.createElement("i");
-        bc.className = "bc"; bc.setAttribute("aria-hidden", "true"); bc.setAttribute("role", "presentation");
-        el.append(bc);
-      }
-    });
-    let buildQueued = false, settling = false, firstBuild = true;
-    let heroT = 0, heroC = -1, heroRender = () => {};
     function applyBuild(el, c) {
       el.style.setProperty("--p", c.toFixed(3));
       const done = c >= 1;
       if (done !== el.__done) { el.__done = done; el.classList.toggle("done", done); }
       if (el.__hook) el.__hook(c, done);
     }
-    function build() {
-      buildQueued = false;
-      const vh = innerHeight, from = vh * .98, to = vh * .5;
-      const maxScroll = document.documentElement.scrollHeight - vh;
-      buildEls.forEach((el) => {
-        const top = el.getBoundingClientRect().top;
-        const end = Math.max(to, top + scrollY - maxScroll);   // blocos no fim da página também chegam a 1
-        let t = from - end < 24 ? (top < from ? 1 : 0) : Math.max(0, Math.min(1, (from - top) / (from - end)));
-        if (!isFinite(t)) t = 1;
-        el.__t = t;
-        if (firstBuild) { el.__c = t; applyBuild(el, t); }
-      });
-      firstBuild = false;
-      settle();
+    /* o painel e a galeria precisam de um progresso (0 a 1): ele sobe por tempo, uma vez */
+    function revealNow(el) {
+      if (el.classList.contains("in")) return;
+      el.classList.add("in");
+      if (!el.matches(".ex, .dash")) { applyBuild(el, 1); return; }
+      const dur = el.matches(".dash") ? 1600 : 1100, t0 = performance.now();
+      (function frame(now) {
+        const p = Math.min(1, (now - t0) / dur);
+        applyBuild(el, p);
+        if (p < 1) requestAnimationFrame(frame);
+      })(t0);
     }
-    /* o progresso exibido alcança o da rolagem com um amortecimento curto: sem saltos, sem duração fixa */
-    function settle() { if (!settling) { settling = true; requestAnimationFrame(step); } }
-    function step() {
-      settling = false;
-      let again = false;
+    if (!document.documentElement.classList.contains("rv")) {
+      buildEls.forEach((el) => { el.style.setProperty("--p", 1); el.classList.add("in", "done"); });
+    } else {
       buildEls.forEach((el) => {
-        const t = el.__t ?? 0, c0 = el.__c ?? 0;
-        if (c0 === t) return;
-        let c = c0 + (t - c0) * .22;
-        if (Math.abs(t - c) < .002) c = t;
-        el.__c = c; applyBuild(el, c);
-        if (c !== t) again = true;
+        [...el.children].forEach((c, i) => c.style.setProperty("--i", i));
+        if (el.classList.contains("section-head")) {
+          const hd = $("h2", el);
+          if (hd) { const ws = splitWords(hd, "sw"); ws.forEach((w, i) => w.style.setProperty("--wk", (i / Math.max(1, ws.length - 1)).toFixed(3))); }
+        }
       });
-      if (heroC !== heroT) {
-        heroC = heroC < 0 ? heroT : heroC + (heroT - heroC) * .22;
-        if (Math.abs(heroT - heroC) < .002) heroC = heroT;
-        heroRender(heroC);
-        if (heroC !== heroT) again = true;
-      }
-      if (again) settle();
+      const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target); revealNow(e.target);
+      }), { rootMargin: "0px 0px -6% 0px", threshold: 0.06 });
+      buildEls.forEach((el) => { el.style.setProperty("--p", 0); io.observe(el); });
+      window.__rvOk = true;
     }
-    function queueBuild() { if (!buildQueued) { buildQueued = true; requestAnimationFrame(build); } }
-    let heroUpdate = () => {};
-    if (reduced) buildEls.forEach((el) => { el.style.setProperty("--p", 1); el.classList.add("done"); });
-    else { addEventListener("scroll", queueBuild, { passive: true }); addEventListener("resize", queueBuild); }
 
     /* ---------- Botões magnéticos ---------- */
     if (fine) {
@@ -1953,7 +1918,7 @@
       });
     }
 
-    /* ---------- Hero: o texto se forma como um site conforme a rolagem ---------- */
+    /* ---------- Hero: o texto se forma como um site assim que a página abre ---------- */
     (function heroBuild() {
       const hero = $(".hero");
       if (!hero) return;
@@ -1966,38 +1931,21 @@
       const words = splitWords($(".lead", hero), "w");
       words.forEach((w, i) => w.style.setProperty("--wi", i));
       hero.style.setProperty("--wn", words.length);
-      const pinMQ = matchMedia("(min-width: 981px) and (min-height: 700px)");
-      const clamp01 = (x) => Math.max(0, Math.min(1, x));
       let lastStep = -1;
-      heroRender = (hp) => {
+      const render = (hp) => {
         hero.style.setProperty("--hp", hp.toFixed(3));
         let n = 0; steps.forEach((s2, i) => { if (hp >= s2.at - 1e-6) n = i; });
         if (n !== lastStep) { lastStep = n; label.textContent = steps[n].t; }
         clock.textContent = String(Math.round(hp * 24)).padStart(2, "0") + ":00h";
         br.classList.toggle("live", hp >= 1);
       };
-      heroUpdate = () => {
-        const vh = innerHeight;
-        const pin = pinMQ.matches;
-        hero.classList.toggle("pin", pin);
-        const inner = $(".hero-inner", hero);
-        if (pin) {
-          const hh = inner.offsetHeight;
-          hero.style.setProperty("--hh", hh + "px");
-          const cell = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--cell")) || 56;
-          hero.style.height = Math.ceil((hh + vh * .9) / cell) * cell + "px";
-        } else hero.style.height = "";
-        const span = pin ? vh * .9 : vh * .6;
-        heroT = clamp01(scrollY / span);
-        const cellPx = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--cell")) || 56;
-        hero.style.setProperty("--lh", Math.ceil(vh / cellPx) * cellPx + "px");   // a camada de grade cobre a tela inteira, em múltiplo da célula
-        if (!isFinite(heroT)) heroT = 1;
-        if (!isFinite(heroC)) heroC = -1;
-        settle();
-      };
-      addEventListener("resize", heroUpdate);
-      heroUpdate();
-      heroC = heroT; heroRender(heroT);   // primeiro quadro sem amortecimento
+      const DUR = 1500, t0 = performance.now();
+      render(0);
+      (function frame(now) {
+        const x = Math.min(1, (now - t0) / DUR);
+        render(1 - Math.pow(1 - x, 3));
+        if (x < 1) requestAnimationFrame(frame);
+      })(t0);
     })();
 
     /* ---------- Grade: quadrados de verdade e seções com altura múltipla da célula ---------- */
@@ -2171,8 +2119,6 @@
       };
       if (reduced) { live = true; setKpis(); }
     })();
-
-    if (!reduced) build();
 
     /* ---------- Briefing: teste ao vivo (nota de clareza, A/B, transições) e briefing escrito ---------- */
     (function briefing() {
