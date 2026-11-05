@@ -1063,6 +1063,71 @@
     .def-list i { flex-shrink: 0; width: 16px; height: 16px; border-radius: 50%; border: 1.5px dashed var(--line-strong); font-style: normal; font-size: .62rem; line-height: 13px; text-align: center; }
     .def-list .ok { color: var(--fg); } .def-list .ok i { border: 0; background: var(--zap); color: var(--on-zap); line-height: 16px; font-weight: 700; }
     @media (max-width: 980px) { .brief-top, .brief-below { grid-template-columns: minmax(0, 1fr); gap: 16px; } .brief-below { margin-top: 16px; } .def-list { grid-template-columns: 1fr; } }
+
+    /* =========================================================
+       VARIAÇÃO: primeira dobra segundo o DESIGN.md
+       ========================================================= */
+    header { top: 16px; width: min(var(--max), 100% - 48px); border-radius: 16px; }
+    .nav { height: 72px; padding: 0 16px; }
+    .logo { font-size: 20px; letter-spacing: -.025em; }
+    .logo svg { margin-right: 8px; }
+    .logo em { font-family: var(--font-body); font-size: 13px; font-weight: 500; margin-left: 8px; padding-bottom: 0; align-self: center; }
+    .nav ul { gap: 8px; }
+    .nav ul a { padding: 8px 16px; border-radius: 6px; font-size: 16px; }
+    .nav .btn, .hero-cta .btn { padding: 16px 24px; font-size: 16px; }
+
+    .hero { padding: 170px 0 80px; }
+    .hero-inner { gap: 40px; }
+    .oneday { display: block; font-size: 16px; margin-bottom: 24px; }
+    .oneday b { font-family: var(--font-body); font-size: 16px; font-weight: 700; letter-spacing: 0; white-space: normal; }
+    .hero h1 { font-size: 72px; line-height: 1; letter-spacing: -.025em; }
+    .hero h1 .line { overflow: visible; padding-bottom: 0; margin-bottom: 0; }
+    .hero h1 .line:last-child { padding: 0 .2em; margin: 0 -.2em; }
+    .hero .lead { max-width: 520px; margin: 24px 0 40px; font-size: 20px; }
+    .hero .lead .hl { color: var(--fg); padding: 0; }
+    .hero .lead .hl::before { display: none; }
+    .hero-trust { margin-top: 24px; font-family: var(--font-body); font-size: 13px; font-weight: 500; }
+    .hero-trust b { font-weight: 500; }
+    .build-hud { display: none !important; }
+
+    .browser { box-shadow: none; }
+    .browser-bar { gap: 16px; padding: 16px; }
+    .lights { gap: 8px; }
+    .url { gap: 8px; padding: 8px 16px; border-radius: 6px; font-family: var(--font-body); font-size: 13px; font-weight: 500; }
+    .canvas { padding: 24px; gap: 16px; }
+    .m-links { gap: 8px; }
+    .m-logo, .m-btn { background: var(--line-strong); }
+    .m-logo { border-radius: 6px; }
+    .m-btn { border-radius: 10px; }
+    .m-title { font-size: 32px; letter-spacing: -.025em; margin-top: 8px; }
+    .m-sub { margin-top: 16px; }
+    .m-sub.s2 { margin-top: 8px; }
+    .m-cards { gap: 8px; }
+    .m-cards i { border-radius: 6px; }
+    .build-status { gap: 16px; padding: 16px; font-family: var(--font-body); font-size: 13px; font-weight: 500; }
+    .bar i { background: var(--line-strong); }
+    .clock { font-weight: 500; }
+
+    .stamp { top: -40px; left: -40px; padding: 16px 24px; gap: 8px; transform: none; }
+    .stamp::before { border-radius: 6px; }
+    .stamp small { font-family: var(--font-body); font-size: 13px; letter-spacing: 0; }
+    .stamp strong { font-size: 32px; letter-spacing: -.025em; }
+    .stamp span { font-family: var(--font-body); font-size: 13px; font-weight: 500; letter-spacing: 0; margin-top: 0; }
+
+    @media (max-width: 1199px) {
+      .hero h1 { font-size: 52px; }
+      .nav ul { gap: 0; }
+      .nav ul a { padding: 8px; }
+      .nav .btn { white-space: nowrap; }
+    }
+    @media (max-width: 980px) {
+      .stamp { position: relative; top: 0; left: 0; display: inline-grid; margin-bottom: 16px; transform: none; }
+      .stage { margin-top: 0; }
+    }
+    @media (max-width: 767px) {
+      .hero { padding: 130px 0 40px; }
+      .hero h1 { font-size: 40px; }
+    }
   </style>
 </head>
 
