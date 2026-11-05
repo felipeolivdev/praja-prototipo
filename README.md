@@ -17,7 +17,8 @@ Projeto de estudo feito com HTML, CSS e JavaScript puros, em um único arquivo.
 
 > [!WARNING]
 > **Protótipo fictício, feito para fins de estudo e didáticos.**
-> A marca PraJá.studio, os pacotes, os preços, os prazos, as condições de pagamento, as garantias, os números dos painéis e o telefone de WhatsApp `(00) 00000-0000` são **inventados**. Este projeto não representa um negócio real nem oferece nenhum serviço.
+> A marca PraJá.studio, os pacotes, os preços, os prazos, as condições de pagamento, as garantias e o telefone de WhatsApp `(00) 00000-0000` são **inventados**. Este projeto não representa um negócio real nem oferece nenhum serviço.
+> O painel de resultados é a exceção: mostra contagens reais e anônimas desta página de estudo, não resultados de clientes.
 
 ## Sobre o projeto
 
@@ -34,7 +35,7 @@ Tudo o que a página promete aparece nela de alguma forma: o selo "24 horas", o 
 | **Comparação** | Agência × no-code sozinho × PraJá, em prazo, esforço, preço, copy e design e posse da página |
 | **Processo** | Como cabe tudo em 24 horas, horário de corte (15h) e linha do tempo guiada pelo scroll |
 | **Exemplos** | Galeria de quatro páginas fictícias (lista de espera, pré-venda, software e evento) com identidades visuais diferentes, que se montam peça por peça conforme a rolagem e podem ser ampliadas |
-| **Resultados** | Painel ilustrativo de teste de demanda e o que a pessoa leva depois da entrega |
+| **Resultados** | Painel com os números reais desta página (visitas, cliques no WhatsApp e briefings gerados) e o que a pessoa leva depois da entrega |
 | **Pacotes e garantias** | Três pacotes de preço fechado e as garantias (código, hospedagem, custos e entrada) |
 | **Briefing** | Duas formas de preencher: teste ao vivo (prévia, nota de clareza e comparação A/B) ou briefing escrito à mão, com pacote indicado e horário previsto de entrega |
 | **FAQ e CTA final** | Objeções mais comuns e uma última chamada para o WhatsApp |
@@ -46,7 +47,7 @@ Tudo o que a página promete aparece nela de alguma forma: o selo "24 horas", o 
 - **Teste ao vivo em 5 passos:** formato (lista de espera, pré-venda, software ou evento), ideia (nome, promessa, variação B e público), oferta (três benefícios e a condição do formato: o que a pessoa ganha, preço, plano ou data), cor e tom de voz, e prazo. A prévia é uma página completa (navegação, título, público, chamada, oferta, benefícios e rodapé) que muda de layout por formato e mostra tracejado tudo o que ainda falta definir. Ao lado, um checklist "O que ainda falta definir" leva direto ao campo que falta. Dá para ver a prévia em modo computador ou celular, e a mensagem do WhatsApp leva todos os campos.
 - **Teste da promessa:** nota de clareza de 0 a 100 para a frase principal (tamanho, benefício, número ou prazo, jargão e leitura), calculada enquanto a pessoa digita. Dá para criar uma **variação B**, comparar as duas lado a lado, ver qual vence e escolher qual aparece na prévia. É uma heurística simples, não uma garantia de conversão.
 - **Horário previsto de entrega** calculado pelo **horário de Brasília** (e não pelo relógio de quem visita), com a regra do corte às 15h, fins de semana e próximo dia útil. A lógica foi testada em vários fusos.
-- **Painel de resultados:** as barras, a meta e os números crescem conforme a rolagem e, depois de prontos, o painel simula novas visitas, cliques e cadastros ao vivo (dados ilustrativos). Cada barra mostra um detalhe ao passar o mouse ou receber foco.
+- **Painel de resultados:** mostra dados reais desta página, lidos de `/api/stats` e atualizados a cada minuto: totais de visitas, cliques no WhatsApp e briefings gerados, mais as visitas dos últimos 7 dias no horário de Brasília. A avaliação da meta de 5% só aparece depois de 100 visitas; antes disso, o painel indica "Coletando dados". Cada barra mostra um detalhe ao passar o mouse ou receber foco.
 - Galeria em que cada exemplo se monta peça por peça conforme a rolagem (a janela ampliada é um `<dialog>` que leva ao WhatsApp com o nome do exemplo na mensagem).
 - **A página se constrói conforme a rolagem:** cada bloco chega como um esboço (grade azul-projeto com contorno tracejado) que se desenha, se preenche e ganha conteúdo item por item; os títulos se formam palavra por palavra e um contador no canto mostra quanto da página já foi montada. O progresso vem da posição de rolagem (`--p` e `--hp` no CSS), sem temporizadores, e o hero fica fixo na tela enquanto o texto se forma. Com `prefers-reduced-motion` ou sem JavaScript, tudo aparece pronto. Também há brilho que segue o cursor, spotlight nos cards, inclinação 3D no mockup do hero e a linha do tempo que se preenche conforme a leitura.
 - Poucos caminhos para o WhatsApp, cada um com um papel: topo (desktop) ou barra fixa (celular), hero, briefing, pacotes e CTA final. As faixas do meio levam ao briefing.
@@ -81,6 +82,7 @@ A galeria é de propósito um contraponto: cada exemplo (Grana, Torra, Fluxo e S
 ```
 .
 ├── index.html        # Página completa (HTML + CSS + JS inline)
+├── api/              # Funções da Vercel que contam os eventos e entregam os números do painel
 ├── promessa.json     # Fonte única da promessa (título, descrições, selo, mensagem do WhatsApp)
 ├── scripts/
 │   └── promessa.mjs  # Propaga a promessa, recaptura as imagens e confere (--check)
@@ -114,6 +116,7 @@ npx serve .
 | Nome e logotipo | `promessa.json` (marca), SVG do logotipo no header e em `assets/og.html` |
 | Cores | variáveis CSS em `:root`, no início do `<style>` |
 | Preços e pacotes | seção `#pacotes` |
+| Meta do painel | constantes `META` e `MIN_VISITAS` no início da função `dashboard()` |
 | Horário de corte | função `eta()` no script do briefing, o texto do card de corte e o FAQ |
 | Imagem de compartilhamento | o visual em `assets/og.html`; o texto vem do `promessa.json` e a captura é feita pelo script |
 
@@ -131,7 +134,21 @@ Não edite à mão o que estiver entre `<!-- promessa:… -->` e `<!-- /promessa
 
 ## Deploy
 
-O site é estático e é publicado na [Vercel](https://vercel.com) a partir deste repositório. Cada push na branch `main` gera um novo deploy automaticamente.
+O site é publicado na [Vercel](https://vercel.com) a partir deste repositório. Cada push na branch `main` gera um novo deploy automaticamente. A página é estática, e só o painel usa as funções da pasta `api/`.
+
+### Medição do painel
+
+O painel precisa de um banco Upstash Redis. Na Vercel, abra o projeto, vá em **Storage** ou **Marketplace**, crie um banco **Upstash Redis** e conecte ao projeto. A integração cria as variáveis `KV_REST_API_URL` e `KV_REST_API_TOKEN` (`UPSTASH_REDIS_REST_URL` e `UPSTASH_REDIS_REST_TOKEN` também funcionam). Depois, faça um novo deploy. Sem o banco, o site funciona normalmente e o painel mostra "indisponível".
+
+| Evento | Quando conta |
+|---|---|
+| Visita | Uma vez por sessão do navegador |
+| Clique no WhatsApp | A cada clique em um botão de WhatsApp |
+| Briefing gerado | Uma vez por sessão, ao clicar em "Enviar briefing no WhatsApp" |
+
+A medição guarda só totais por dia e o total geral, sem cookies e sem IP, navegador ou texto do briefing. Robôs conhecidos e deploys de prévia ficam de fora, mas o endpoint é público, então os números são um indicador, não uma auditoria.
+
+Para não contar as suas próprias visitas, abra uma vez `https://praja-studio.vercel.app/?notrack` em cada navegador que você usa. Com `npx serve .` não há funções, então o painel aparece como "indisponível".
 
 ## Licença
 

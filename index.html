@@ -28,7 +28,7 @@
       setTimeout(function () { if (!window.__rvOk) document.documentElement.classList.remove("rv"); }, 3000);
     }
   </script>
-  <noscript><style>.reveal, .hero .lead, .hero-cta, .hero-trust, .stage { opacity: 1 !important; transform: none !important; } .hero h1 .line span { transform: none !important; } .dash .bars i { height: calc(var(--h) * 100%) !important; } .dash .bars i b, .dash .ok { opacity: 1 !important; } .dash .ok { transform: skewX(var(--skew)) !important; } .dash .goal-bar i { width: 100% !important; }</style></noscript>
+  <noscript><style>.reveal, .hero .lead, .hero-cta, .hero-trust, .stage { opacity: 1 !important; transform: none !important; } .hero h1 .line span { transform: none !important; } .dash .bars i { height: calc(var(--h) * 100%) !important; } .dash .bars i b, .dash .ok { opacity: 1 !important; } .dash .ok { transform: skewX(var(--skew)) !important; } .dash .goal-bar i { width: 0 !important; }</style></noscript>
   <meta name="theme-color" content="#F7F5EF" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='11' fill='%23f5c518'/><path d='M23 6 12 22h7l-2 12 11-16h-7z' fill='%2315161a'/></svg>" />
 
@@ -414,7 +414,8 @@
     .verdict { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 18px; border-top: 1.5px solid var(--line); }
     .goal { flex: 1; font-size: .8rem; color: var(--muted); }
     .goal-bar { height: 8px; border-radius: 8px; background: var(--line); margin-top: 8px; overflow: hidden; }
-    .goal-bar i { position: relative; display: block; height: 100%; width: calc(100% * var(--g)); background: var(--zap); overflow: hidden; }
+    .goal-bar i { position: relative; display: block; height: 100%; width: calc(100% * var(--goal, 0) * var(--g)); background: var(--zap); overflow: hidden; }
+    .dash .ok.wait { background: var(--line); }
     .ok { font-weight: 700; font-size: .85rem; color: var(--on-zap); background: var(--zap); padding: 7px 16px; border-radius: 8px; white-space: nowrap; opacity: var(--g, 1); transform: skewX(var(--skew)); }
 
     /* =========================================================
@@ -1401,20 +1402,20 @@
 
         <div class="spot dash reveal" style="--d:.1s">
           <div class="dash-head">
-            <strong><span class="dot" aria-hidden="true"></span>Painel de exemplo</strong>
-            <span class="pill">dados ilustrativos</span>
+            <strong><span class="dot" aria-hidden="true"></span>Painel desta página</strong>
+            <span class="pill" id="dashState">dados reais</span>
           </div>
           <div class="kpis">
-            <div><small>Visitas</small><b id="kVis">1.240</b></div>
-            <div><small>Cliques no botão</small><b id="kClk">186</b></div>
-            <div><small>Cadastros</small><b id="kCad">74</b></div>
-            <div class="hot"><small>Visita virou cadastro</small><b id="kConv">6,0%</b></div>
+            <div><small>Visitas</small><b id="kVis">–</b></div>
+            <div><small>Cliques no WhatsApp</small><b id="kClk">–</b></div>
+            <div><small>Briefings gerados</small><b id="kBrief">–</b></div>
+            <div class="hot"><small>Visita virou briefing</small><b id="kConv">–</b></div>
           </div>
-          <div class="bars" role="group" aria-label="Cadastros por dia da semana (exemplo)"><i tabindex="0" style="--i:0;--h:0.278" aria-label="Seg: 5 cadastros em 95 visitas (5,3%)"><b>5</b><em class="tip">Seg · 5 cadastros · 5,3%</em></i><i tabindex="0" style="--i:1;--h:0.444" aria-label="Ter: 8 cadastros em 140 visitas (5,7%)"><b>8</b><em class="tip">Ter · 8 cadastros · 5,7%</em></i><i tabindex="0" style="--i:2;--h:0.389" aria-label="Qua: 7 cadastros em 125 visitas (5,6%)"><b>7</b><em class="tip">Qua · 7 cadastros · 5,6%</em></i><i tabindex="0" style="--i:3;--h:0.667" aria-label="Qui: 12 cadastros em 190 visitas (6,3%)"><b>12</b><em class="tip">Qui · 12 cadastros · 6,3%</em></i><i tabindex="0" style="--i:4;--h:0.556" aria-label="Sex: 10 cadastros em 170 visitas (5,9%)"><b>10</b><em class="tip">Sex · 10 cadastros · 5,9%</em></i><i tabindex="0" style="--i:5;--h:0.778" aria-label="Sáb: 14 cadastros em 240 visitas (5,8%)"><b>14</b><em class="tip">Sáb · 14 cadastros · 5,8%</em></i><i tabindex="0" style="--i:6;--h:1.000" aria-label="Dom: 18 cadastros em 280 visitas (6,4%)"><b>18</b><em class="tip">Dom · 18 cadastros · 6,4%</em></i></div>
+          <div class="bars" role="group" aria-label="Visitas por dia nos últimos 7 dias"><i tabindex="0" style="--i:0;--h:0" aria-label="Sem dados"><b></b><em class="tip">Sem dados</em></i><i tabindex="0" style="--i:1;--h:0" aria-label="Sem dados"><b></b><em class="tip">Sem dados</em></i><i tabindex="0" style="--i:2;--h:0" aria-label="Sem dados"><b></b><em class="tip">Sem dados</em></i><i tabindex="0" style="--i:3;--h:0" aria-label="Sem dados"><b></b><em class="tip">Sem dados</em></i><i tabindex="0" style="--i:4;--h:0" aria-label="Sem dados"><b></b><em class="tip">Sem dados</em></i><i tabindex="0" style="--i:5;--h:0" aria-label="Sem dados"><b></b><em class="tip">Sem dados</em></i><i tabindex="0" style="--i:6;--h:0" aria-label="Sem dados"><b></b><em class="tip">Sem dados</em></i></div>
           <div class="bar-days" aria-hidden="true"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>
           <div class="verdict">
-            <div class="goal"><span>Meta: 5% das visitas virarem cadastro</span><div class="goal-bar"><i></i></div></div>
-            <span class="ok">✓ Ideia validada</span>
+            <div class="goal"><span id="goalText">Meta: 5% das visitas virarem briefing</span><div class="goal-bar"><i></i></div></div>
+            <span class="ok wait" id="goalOk">Sem dados</span>
           </div>
         </div>
       </div>
@@ -1807,6 +1808,29 @@
     });
     $("#year").textContent = new Date().getFullYear();
 
+    /* ---------- Medição: só totais anônimos, sem cookies e sem guardar IP ou texto ----------
+       Abra a página uma vez com ?notrack para este navegador deixar de ser contado. */
+    function flag(area, key, write) {
+      try {
+        if (write) window[area].setItem(key, "1");
+        return window[area].getItem(key) === "1";
+      } catch { return false; }
+    }
+    const noTrack = flag("localStorage", "praja-notrack", new URLSearchParams(location.search).has("notrack"));
+    function track(event, oncePerSession) {
+      if (noTrack || (oncePerSession && flag("sessionStorage", "praja-" + event))) return;
+      if (oncePerSession) flag("sessionStorage", "praja-" + event, true);
+      const url = "/api/track?e=" + event;
+      if (!navigator.sendBeacon?.(url)) fetch(url, { method: "POST", keepalive: true }).catch(() => {});
+    }
+    track("visit", true);
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest('a[href^="https://wa.me/"]');
+      if (!a || a.getAttribute("aria-disabled") === "true") return;
+      track("click");
+      if (a.id === "demoCta" || a.id === "wrCta") track("brief", true);
+    }, true);
+
     /* ---------- Scroll progress + header state ---------- */
     const progress = $(".progress"), header = $("header");
     const hud = $("#hud"), hudPct = $("#hudPct"), hudLabel = $("#hudLabel");
@@ -2051,73 +2075,82 @@
       });
     }
 
-    /* ---------- Painel de exemplo: entrada animada + simulação ao vivo (dados ilustrativos) ---------- */
+    /* ---------- Painel: números reais desta página, vindos de /api/stats ---------- */
     (function dashboard() {
       const dash = $(".dash");
       if (!dash) return;
+      const META = 5, MIN_VISITAS = 100, REFRESH = 60000;
+      const WEEK = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
       const clamp01 = (x) => Math.max(0, Math.min(1, x));
-      const days = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"];
-      const S = { vis: 1240, clk: 186, cad: 74, cads: [5, 8, 7, 12, 10, 14, 18], viss: [95, 140, 125, 190, 170, 240, 280] };
-      const el = { vis: $("#kVis"), clk: $("#kClk"), cad: $("#kCad"), conv: $("#kConv") };
-      const bars = $$(".bars i", dash);
+      const el = { vis: $("#kVis"), clk: $("#kClk"), brief: $("#kBrief"), conv: $("#kConv"), state: $("#dashState"), goal: $("#goalText"), ok: $("#goalOk") };
+      const bars = $$(".bars i", dash), labels = $$(".bar-days span", dash);
       const int = (n) => Math.round(n).toLocaleString("pt-BR");
       const pct = (n) => n.toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + "%";
-      const conv = () => S.cad / S.vis * 100;
+      const count = (n, word) => `${int(n)} ${word}${n === 1 ? "" : "s"}`;
+      let data = null, failed = false, timer = null;
+      let prog = document.documentElement.classList.contains("rv") ? 0 : 1;
 
-      function renderBars() {
-        const max = Math.max(...S.cads);
-        bars.forEach((b, i) => {
-          const c = S.cads[i] / S.viss[i] * 100;
-          b.style.setProperty("--h", (S.cads[i] / max).toFixed(3));
-          $("b", b).textContent = S.cads[i];
-          $(".tip", b).textContent = `${days[i]} · ${S.cads[i]} cadastros · ${pct(c)}`;
-          b.setAttribute("aria-label", `${days[i]}: ${S.cads[i]} cadastros em ${S.viss[i]} visitas (${pct(c)})`);
+      function setVerdict(text, chip, good, fill) {
+        el.goal.textContent = text;
+        el.ok.textContent = chip;
+        el.ok.classList.toggle("wait", !good);
+        dash.style.setProperty("--goal", clamp01(fill).toFixed(3));
+      }
+      function paintVerdict(vis, conv) {
+        if (vis < MIN_VISITAS) return setVerdict(`Coletando dados: ${int(vis)} de ${MIN_VISITAS} visitas para avaliar a meta de ${META}%`, "Coletando dados", false, vis / MIN_VISITAS);
+        const hit = conv >= META;
+        setVerdict(`Meta: ${META}% das visitas virarem briefing`, hit ? "✓ Ideia validada" : "Abaixo da meta", hit, conv / META);
+      }
+      function paintBars() {
+        const max = Math.max(1, ...data.days.map((d) => d.visit));
+        data.days.forEach((d, i) => {
+          const day = WEEK[new Date(d.date + "T12:00:00Z").getUTCDay()], c = d.visit ? d.brief / d.visit * 100 : 0, b = bars[i];
+          b.style.setProperty("--h", (d.visit / max).toFixed(3));
+          $("b", b).textContent = int(d.visit);
+          $(".tip", b).textContent = `${day} · ${count(d.visit, "visita")} · ${count(d.brief, "briefing")}`;
+          b.setAttribute("aria-label", `${day}: ${count(d.visit, "visita")} e ${count(d.brief, "briefing")} (${pct(c)})`);
+          labels[i].textContent = day;
         });
       }
-      function setKpis() {
-        el.vis.textContent = int(S.vis); el.clk.textContent = int(S.clk);
-        el.cad.textContent = int(S.cad); el.conv.textContent = pct(conv());
+      function paint() {
+        if (!data) {
+          el.state.textContent = failed ? "indisponível" : "carregando";
+          if (failed) setVerdict("Medição indisponível no momento", "Sem dados", false, 0);
+          return;
+        }
+        const { visit, click, brief } = data.total, conv = visit ? brief / visit * 100 : 0;
+        el.state.textContent = "dados reais";
+        el.vis.textContent = int(visit * prog); el.clk.textContent = int(click * prog); el.brief.textContent = int(brief * prog);
+        el.conv.textContent = visit ? pct(conv * prog) : "–";
+        paintVerdict(visit, conv);
       }
       function bump(node) {
         const box = node.parentElement;
         box.classList.remove("bump"); void box.offsetWidth; box.classList.add("bump");
       }
-      function countUp(node, to, fmt, dur = 1300) {
-        const t0 = performance.now();
-        (function frame(now) {
-          const p = Math.min((now - t0) / dur, 1);
-          node.textContent = fmt(to * (1 - Math.pow(1 - p, 3)));
-          if (p < 1) requestAnimationFrame(frame);
-        })(t0);
+      async function load() {
+        try {
+          const res = await fetch("/api/stats");
+          if (!res.ok) throw new Error(res.status);
+          const next = await res.json();
+          if (data) [["visit", el.vis], ["click", el.clk], ["brief", el.brief]].forEach(([k, node]) => { if (next.total[k] > data.total[k]) bump(node); });
+          data = next; failed = false;
+          paintBars();
+        } catch { failed = !data; }   // numa falha depois de carregar, mantém os últimos números
+        paint();
       }
 
-      /* chegam novas visitas, cliques e cadastros enquanto o painel está à vista */
-      let ticks = 0, timer = null;
-      function tick() {
-        if (document.hidden) return;
-        const last = S.cads.length - 1, dv = 1 + Math.floor(Math.random() * 4);
-        S.vis += dv; S.viss[last] += dv; bump(el.vis);
-        if (Math.random() < .55) { S.clk += 1; bump(el.clk); }
-        if (Math.random() < .22) { S.cad += 1; S.cads[last] += 1; bump(el.cad); }
-        setKpis(); renderBars();
-        if (++ticks >= 40) stop();
-      }
-      const start = () => { if (!timer && !reduced && live && ticks < 40) timer = setInterval(tick, 2400); };
-      const stop = () => { clearInterval(timer); timer = null; };
-
-      renderBars();
-      let live = false, seen = false;
-      new IntersectionObserver(([e]) => { seen = e.isIntersecting; if (!seen) stop(); else if (live) start(); }, { threshold: .3 }).observe(dash);
-      dash.__hook = (p, done) => {
-        const g = clamp01((p - .5) * 2), e = 1 - Math.pow(1 - g, 3);
-        if (!live) {
-          el.vis.textContent = int(S.vis * e); el.clk.textContent = int(S.clk * e);
-          el.cad.textContent = int(S.cad * e); el.conv.textContent = pct(conv() * e);
-        }
-        if (done && !live) { live = true; setKpis(); if (seen) start(); }
-        if (!done && live) { live = false; stop(); }
+      paint();
+      new IntersectionObserver(([e]) => {
+        if (e.isIntersecting) {
+          load();
+          timer = timer || setInterval(() => { if (!document.hidden) load(); }, REFRESH);
+        } else { clearInterval(timer); timer = null; }
+      }, { threshold: .15 }).observe(dash);
+      dash.__hook = (p) => {
+        prog = 1 - Math.pow(1 - clamp01((p - .5) * 2), 3);
+        paint();
       };
-      if (reduced) { live = true; setKpis(); }
     })();
 
     /* ---------- Briefing: teste ao vivo (nota de clareza, A/B, transições) e briefing escrito ---------- */
